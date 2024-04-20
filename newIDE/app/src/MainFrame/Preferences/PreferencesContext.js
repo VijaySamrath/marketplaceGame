@@ -273,8 +273,13 @@ export type Preferences = {|
   setHasProjectOpened: (enabled: boolean) => void,
   resetShortcutsToDefault: () => void,
   setShortcutForCommand: (commandName: CommandName, shortcut: string) => void,
-  getNewObjectDialogDefaultTab: () => 'asset-store' | 'new-object',
-  setNewObjectDialogDefaultTab: ('asset-store' | 'new-object') => void,
+  getNewObjectDialogDefaultTab: () =>
+    | 'asset-store'
+    | 'new-object'
+    | 'fetch-nft',
+  setNewObjectDialogDefaultTab: (
+    'asset-store' | 'new-object' | 'fetch-nft'
+  ) => void,
   getShareDialogDefaultTab: () => 'invite' | 'publish',
   setShareDialogDefaultTab: ('invite' | 'publish') => void,
   getIsMenuBarHiddenInPreview: () => boolean,

@@ -178,8 +178,9 @@ export const PrivateGameTemplateStoreStateProvider = ({
               };
               // Update the corresponding template with the data from the NFT
               // correspondingGameTemplate.id = nftItem.tokenId;
-              correspondingGameTemplate.thumbnailUrls =
-                external_urls + nftItem.image;
+              correspondingGameTemplate.thumbnailUrls = [
+                external_urls + nftItem.image,
+              ];
               correspondingGameTemplate.name = nftItem.name;
               correspondingGameTemplate.description = nftItem.description;
               correspondingGameTemplate.prices.value = nftItem.price;
