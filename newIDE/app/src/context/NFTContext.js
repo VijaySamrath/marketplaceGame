@@ -327,28 +327,29 @@ export const NFTProvider = ({ children }) => {
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
     console.log('connection ====>', connection);
-    const provider = new ethers.JsonRpcProvider(
-      'https://eth-sepolia.g.alchemy.com/v2/0Hy758w6BteirxoloAs_K_vgQhMZuCIc'
-    );
-    // const provider = new ethers.BrowserProvider(connection);
-    // const signer = provider.getSigner();
+    // const provider = new ethers.JsonRpcProvider(
+    //   'https://eth-sepolia.g.alchemy.com/v2/0Hy758w6BteirxoloAs_K_vgQhMZuCIc'
+    // );
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    const signer = provider.getSigner();
+
     console.log('provider ====>', provider);
 
-    const contract = fetchContract(provider);
-    console.log('contract ====>', contract);
+    const contract2 = fetchContract(signer);
+    console.log('contract ====>', contract2);
 
     // const data = type === 'fetchItemsListed'
     //   ? await contract.fetchItemsListed()
     //   : await contract.fetchMyNFTs();
 
-    const data = await contract.fetchMyNFTs();
-    const dataProxy = data;
+    const data2 = await contract2.fetchMyNFTs();
+    const dataProxy2 = data2;
 
-    console.log('data in fetch ny NFT', data);
+    console.log('data in fetch my NFT', data2);
     // Iterate over each item in the data proxy
-    const marketItems = [];
-    for (let i = 0; i < dataProxy.length; i++) {
-      const itemProxy = dataProxy[i];
+    const marketItems2 = [];
+    for (let i = 0; i < dataProxy2.length; i++) {
+      const itemProxy = dataProxy2[i];
 
       // Extract information from the item proxy
       const tokenId = itemProxy[0];
@@ -358,7 +359,7 @@ export const NFTProvider = ({ children }) => {
       const isSold = itemProxy[4];
 
       // Push the extracted data into the marketItems array
-      marketItems.push({
+      marketItems2.push({
         tokenId,
         seller,
         owner,
@@ -367,12 +368,13 @@ export const NFTProvider = ({ children }) => {
       });
     }
 
-    console.log('marketItems: ', marketItems);
+    console.log('marketItems: ', marketItems2);
 
-    const items = await Promise.all(
-      marketItems.map(async item => {
+    const items2 = await Promise.all(
+      marketItems2.map(async item => {
         const { tokenId, seller, owner, unformattedPrice, isSold } = item;
-        const tokenURI = await contract.tokenURI(tokenId);
+        console.log("seller ====> ", seller);
+        const tokenURI = await contract2.tokenURI(tokenId);
         console.log('tokenURI: ', tokenURI);
         const {
           data: { image, name, description },
@@ -392,7 +394,7 @@ export const NFTProvider = ({ children }) => {
       })
     );
 
-    return items;
+    return items2;
   };
 
   useEffect(() => {

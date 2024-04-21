@@ -40,6 +40,7 @@ import ErrorBoundary from '../UI/ErrorBoundary';
 import NFTCard from '../MainFrame/EditorContainers/HomePage/BuildSection/NFTCard.jsx';
 import { NFTContext } from '../context/NFTContext';
 import { useState, useEffect } from 'react';
+import NFTDetailPage from './NFTDetailPage.jsx';
 
 const isDev = Window.isDev();
 
@@ -124,17 +125,32 @@ function NewObjectDialog({
   const [myNFTs, setMyNFTs] = useState([]);
   const [fetchMyNFTsClicked, setFetchMyNFTsClicked] = useState(false);
   const [fetchMyNFTsError, setFetchMyNFTsError] = useState(null);
+  const [selectedNFT, setSelectedNFT] = useState(null);
+  const [fetchNFTsClicked, setFetchNFTsClicked] = useState(false);
+  const [showDetailPage, setShowDetailPage] = useState(false);
 
   const handleFetchNFTs = async () => {
     try {
       const fetchedNFTs = await fetchNFTs();
       setNfts(fetchedNFTs);
-
-      // need to call a function onInstallNFT to make the nft show in editor
-      // onInstallNFT(arguments) needs to be called here with its arguments
+      setFetchNFTsClicked(true);
     } catch (error) {
       console.error('Error fetching NFTs:', error);
     }
+  };
+
+  const handleCloseDetailPage = () => {
+    setShowDetailPage(false);
+  };
+
+  const handleNFTCardClick = (nft) => {
+    setSelectedNFT(nft);
+    setShowDetailPage(true);
+  };
+
+  const handleAddToScene = () => {
+    // Call the function to add the selected NFT to the scene
+    onInstallNFT(selectedNFT);
   };
 
   const handleFetchMyNFTs = async () => {
@@ -146,20 +162,6 @@ function NewObjectDialog({
       console.error('Error fetching my NFTs:', error);
     }
   };
-
-  //   useEffect(() => {
-  //         if (fetchMyNFTsClicked) {
-  //           const fetchNFTData = async () => {
-  //             try {
-  //               const fetchedNFTs = await fetchMyNFTs();
-  //               setMyNFTs(fetchedNFTs);
-  //             } catch (error) {
-  //               console.error('Error fetching NFTs:', error);
-  //             }
-  //           };
-  //           fetchNFTData();
-  //         }
-  //       }, [fetchMyNFTsClicked, fetchNFTs]);
 
   const {
     setNewObjectDialogDefaultTab,
@@ -199,11 +201,6 @@ function NewObjectDialog({
     isAssetBeingInstalled,
     setIsAssetBeingInstalled,
   ] = React.useState<boolean>(false);
-  // Gola-k Start
-  const [isNFTBeingInstalled, setIsNFTBeingInstalled] = React.useState<boolean>(
-    false
-  );
-  // Gola-k end
   const [
     selectedCustomObjectEnumeratedMetadata,
     setSelectedCustomObjectEnumeratedMetadata,
@@ -222,10 +219,124 @@ function NewObjectDialog({
   const fetchAssets = useFetchAssets();
   const showExtensionUpdateConfirmation = useExtensionUpdateAlertDialog();
 
-  // This function gets called on add to the scene button
+  // const onInstallNFT = React.useCallback(
+  //   (nft) => {
+  //     if (!nft) return;
+  //     onCreateNewObject(nft);
+  //   },
+  //   [onCreateNewObject]
+  // );
+
+  const onInstallNFT = React.useCallback(
+    async (nft) => {
+      if (!nft) return false;
+
+      // const assets = [{
+      //   name: nft.name,
+      //   tokenId: nft.tokenId,
+      //   type: 
+      // }];
+      const external_url = 'https://gateway.pinata.cloud/';
+
+      const assets = [
+        {
+          id: nft.tokenId,
+          name: nft.name,
+          authors: ["Owner's Assets"],
+          license: 'CC0 (public domain)',
+          shortDescription: '',
+          animationsCount: 1,
+          description: '',
+          dominantColors: [526344],
+          gdevelopVersion: '5.0.0-beta100',
+          height: 16,
+          maxFramesCount: 1,
+          objectType: 'sprite',
+          previewImageUrls: [external_url + nft.image],
+          shortDescription: '',
+          tags: ['16x16 rpg item pack', 'side view', 'pixel art', 'rpg', 'weapon', 'sword'],
+          version: '1.0.0',
+          width: 16,
+          objectAssets: [
+            {
+              object: {
+                adaptCollisionMaskAutomatically: true,
+                assetStoreId: '',
+                name: nft.name,
+                type: 'Sprite',
+                updateIfNotVisible: false,
+              },
+              requiredExtensions: [],
+              resources: [
+                {
+                  alwaysLoaded: false,
+                  file: "..need to put here..",
+                  kind: "image",
+                  metadata: "",
+                  name: "",
+                  origin: {
+                    identifier: "...",
+                    name: "gdevelop-asset-store",
+                    smoothed: true,
+                    userAdded: false,
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ];
+      
+  
+  
+      setIsAssetBeingInstalled(true);
+  
+      try {
+        const assets = [nft];
+  
+        const requiredExtensionInstallation = { outOfDateExtensionShortHeaders: [] };
+        const shouldUpdateExtension = false;
+        await installRequiredExtensions({
+          requiredExtensionInstallation,
+          shouldUpdateExtension,
+          eventsFunctionsExtensionsState,
+          project,
+        });
+  
+        const installOutput = await installPublicAsset({
+          assets,
+          project,
+          objectsContainer,
+        });
+  
+    
+        sendAssetAddedToProject({
+          id: nft.tokenId,
+          name: nft.name,
+          assetPackName: nft.name, 
+          assetPackTag: nft.tag, 
+          assetPackId: null, 
+          assetPackKind: 'public', 
+        });
+
+        setIsAssetBeingInstalled(false);
+        return true;
+      } catch (error) {
+        console.error('Error while installing the NFT:', error);
+        setIsAssetBeingInstalled(false);
+        return false;
+      }
+    },
+    [
+      setIsAssetBeingInstalled,
+    ]
+  );
+  
+  
 
   const onInstallAsset = React.useCallback(
     async (assetShortHeader): Promise<boolean> => {
+
       if (!assetShortHeader) return false;
       setIsAssetBeingInstalled(true);
       try {
@@ -244,6 +355,8 @@ function NewObjectDialog({
         const assets = await fetchAssets([assetShortHeader]);
         console.log('assets in new dialog: ', assets);
         const asset = assets[0];
+        console.log('asset in new dialog: ', asset);
+
         const requiredExtensionInstallation = await checkRequiredExtensionsUpdateForAssets(
           {
             assets,
@@ -277,7 +390,6 @@ function NewObjectDialog({
           throw new Error('Unable to install private Asset.');
         }
 
-        // Useful function for NFT
         sendAssetAddedToProject({
           id: assetShortHeader.id,
           name: assetShortHeader.name,
@@ -416,7 +528,7 @@ function NewObjectDialog({
             )
           }
           onClick={async () => {
-            onInstallAsset(openedAssetShortHeader);
+            await onInstallAsset(openedAssetShortHeader);
           }}
           disabled={isAssetBeingInstalled}
           id="add-asset-button"
@@ -529,6 +641,12 @@ function NewObjectDialog({
                     value: 'fetch-nft',
                     id: 'nft-from-nft-tab',
                   },
+                //   {
+                //     label: <Trans>Nft Card</Trans>,
+                //     value: 'fetch-mynfts',
+                //     id: 'nft-from-nft-tab',
+                //   },
+
                 ]}
                 // Enforce scroll on mobile, because the tabs have long names.
                 variant={isMobile ? 'scrollable' : undefined}
@@ -556,13 +674,49 @@ function NewObjectDialog({
                 i18n={i18n}
               />
             )}
-            {currentTab === 'fetch-nft' && (
-              <div>
-                {nfts.map(nft => (
-                  <NFTCard key={nft.tokenId} nft={nft} />
-                ))}
-              </div>
-            )}
+            {showDetailPage ? (
+        <NFTDetailPage nft={selectedNFT} onClose={handleCloseDetailPage} />
+      ) : fetchNFTsClicked ? (
+        nfts.map((nft) => (
+          <div key={nft.tokenId} onClick={() => handleNFTCardClick(nft)}>
+            <NFTCard nft={nft} />
+          </div>
+        ))
+      ) : (
+        <p>Click "Fetch NFTs" to load NFTs</p>
+      )}
+
+                {selectedNFT && (
+
+                <FlatButton
+
+                  key="add-to-scene"
+
+                  primary
+
+                  label={<Trans>Add to Scene</Trans>}
+
+                  onClick={handleAddToScene}
+
+                />
+
+              )}
+
+              {/* Render My NFTs only if fetchMyNFTsClicked is true */}
+
+          {fetchMyNFTsClicked ? (
+
+              myNFTs.map(nft => (
+
+               <div key={nft.tokenId} onClick={() => handleNFTCardClick(nft)}>
+
+               <NFTCard nft={nft} />
+
+          </div>
+
+          ))
+
+          ) : null}
           </Dialog>
           {isAssetPackDialogInstallOpen &&
             displayedAssetShortHeaders &&
