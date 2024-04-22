@@ -237,6 +237,7 @@ function NewObjectDialog({
       //   type:
       // }];
       const external_url = 'https://gateway.pinata.cloud/';
+      const imagURL = external_url + nft.image;
 
       const assets = [
         {
@@ -252,7 +253,7 @@ function NewObjectDialog({
           height: 16,
           maxFramesCount: 1,
           objectType: 'sprite',
-          previewImageUrls: [String(external_url + nft.image)],
+          previewImageUrls: [String(imagURL)],
           tags: [
             '16x16 rpg item pack',
             'side view',
@@ -265,6 +266,7 @@ function NewObjectDialog({
           width: 16,
           objectAssets: [
             {
+              // customizations: [], // This is giving error in below assets
               object: {
                 adaptCollisionMaskAutomatically: true,
                 animations: [
@@ -282,12 +284,12 @@ function NewObjectDialog({
               resources: [
                 {
                   alwaysLoaded: false,
-                  file: String(external_url + nft.image),
+                  file: String(imagURL),
                   kind: 'image',
                   metadata: '',
-                  name: String(nft.name),
+                  name: String(nft.name + '.png'),
                   origin: {
-                    identifier: '...',
+                    identifier: String(imagURL),
                     name: 'gdevelop-asset-store',
                     smoothed: true,
                     userAdded: false,
