@@ -241,18 +241,18 @@ function NewObjectDialog({
       const assets = [
         {
           id: String(Number(nft.tokenId)),
-          name: nft.name,
+          name: String(nft.name),
           authors: ["Owner's Assets"],
           license: 'CC0 (public domain)',
           shortDescription: '',
           animationsCount: 1,
-          description: '',
+          description: String(nft.description),
           dominantColors: [526344],
           gdevelopVersion: '5.0.0-beta100',
           height: 16,
           maxFramesCount: 1,
           objectType: 'sprite',
-          previewImageUrls: [external_url + nft.image],
+          previewImageUrls: [String(external_url + nft.image)],
           tags: [
             '16x16 rpg item pack',
             'side view',
@@ -282,10 +282,10 @@ function NewObjectDialog({
               resources: [
                 {
                   alwaysLoaded: false,
-                  file: external_url + nft.image,
+                  file: String(external_url + nft.image),
                   kind: 'image',
                   metadata: '',
-                  name: nft.name,
+                  name: String(nft.name),
                   origin: {
                     identifier: '...',
                     name: 'gdevelop-asset-store',
