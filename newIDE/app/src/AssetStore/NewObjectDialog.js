@@ -134,6 +134,7 @@ function NewObjectDialog({
       const fetchedNFTs = await fetchNFTs();
       setNfts(fetchedNFTs);
       setFetchNFTsClicked(true);
+      setFetchMyNFTsClicked(false);
     } catch (error) {
       console.error('Error fetching NFTs:', error);
     }
@@ -158,6 +159,7 @@ function NewObjectDialog({
       const fetchedMyNFTs = await fetchMyNFTs('mynfts');
       setMyNFTs(fetchedMyNFTs);
       setFetchMyNFTsClicked(true);
+      setFetchNFTsClicked(false);
     } catch (error) {
       console.error('Error fetching my NFTs:', error);
     }
@@ -733,7 +735,7 @@ function NewObjectDialog({
                     key={nft.tokenId}
                     onClick={() => handleNFTCardClick(nft)}
                   >
-                    <NFTCard nft={nft} />
+                    <NFTCard nft={nft} onProfilePage={true} />
                   </div>
                 ))
               : null}

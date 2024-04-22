@@ -331,7 +331,7 @@ export const NFTProvider = ({ children }) => {
     //   'https://eth-sepolia.g.alchemy.com/v2/0Hy758w6BteirxoloAs_K_vgQhMZuCIc'
     // );
     const provider = new ethers.BrowserProvider(window.ethereum);
-    const signer = provider.getSigner();
+    const signer = await provider.getSigner();
 
     console.log('provider ====>', provider);
 
