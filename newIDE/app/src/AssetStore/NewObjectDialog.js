@@ -74,11 +74,11 @@ export const useFetchAssets = () => {
   ): Promise<Array<Asset>> => {
     const fetchedAssets = await PromisePool.withConcurrency(6)
       .for(assetShortHeaders)
-      .process < Asset > (async assetShortHeader => {
+      .process<Asset>(async assetShortHeader => {
         const asset = isPrivateAsset(assetShortHeader)
           ? await fetchPrivateAsset(assetShortHeader, {
-            environment,
-          })
+              environment,
+            })
           : await getPublicAsset(assetShortHeader, { environment });
         if (!asset) {
           throw new Error(
@@ -91,7 +91,7 @@ export const useFetchAssets = () => {
     if (fetchedAssets.errors.length) {
       throw new Error(
         'Error(s) while installing assets. The first error is: ' +
-        fetchedAssets.errors[0].message
+          fetchedAssets.errors[0].message
       );
     }
     const assets = fetchedAssets.results;
@@ -124,16 +124,15 @@ export const useFetchAssets = () => {
 // );
 // };
 
-
 type Props = {|
   project: gdProject,
-    layout: ?gdLayout,
-      objectsContainer: gdObjectsContainer,
-        resourceManagementProps: ResourceManagementProps,
-          onClose: () => void,
-            onCreateNewObject: (type: string) => void,
-              onObjectsAddedFromAssets: (Array < gdObject >) => void,
-                canInstallPrivateAsset: () => boolean,
+  layout: ?gdLayout,
+  objectsContainer: gdObjectsContainer,
+  resourceManagementProps: ResourceManagementProps,
+  onClose: () => void,
+  onCreateNewObject: (type: string) => void,
+  onObjectsAddedFromAssets: (Array<gdObject>) => void,
+  canInstallPrivateAsset: () => boolean,
 |};
 
 function NewObjectDialog({
@@ -229,11 +228,11 @@ function NewObjectDialog({
   const [
     isAssetBeingInstalled,
     setIsAssetBeingInstalled,
-  ] = React.useState < boolean > (false);
+  ] = React.useState<boolean>(false);
   const [
     selectedCustomObjectEnumeratedMetadata,
     setSelectedCustomObjectEnumeratedMetadata,
-  ] = React.useState <? EnumeratedObjectMetadata > (null);
+  ] = React.useState<?EnumeratedObjectMetadata>(null);
   const eventsFunctionsExtensionsState = React.useContext(
     EventsFunctionsExtensionsContext
   );
@@ -249,7 +248,7 @@ function NewObjectDialog({
   // const fetchNAssets = useFetchNFTAssets();
   const showExtensionUpdateConfirmation = useExtensionUpdateAlertDialog();
 
-  // Making onInstallNFT similiar to onInstallEmptyCustomObject and using nft imageurl for object
+  // Harpreet OnInstallNFT()
   const onInstallNFT = React.useCallback(
     async nft => {
       if (!nft) return false;
@@ -260,219 +259,118 @@ function NewObjectDialog({
       //   type:
       // }];
       const external_url = 'https://gateway.pinata.cloud/';
-<<<<<<< HEAD
-       const assetURL =external_url + nft.image; // 'https://asset-resources.gdevelop.io/public-resources/16x16 Emotes by Tomcat94/8a1eb43ba55539012b4acf8b0b72985f4177e37eb3e26bb1b0b438609d29a7b4_Angry Emote Mid.png'; 
-      const assets = [
-          {
-            "id":  String(Number(nft.tokenId)),
-            "name": String(nft.name),
-            "authors": [
-              "Tomcat94"
-            ],
-            "license": "CC0 (public domain)",
-            "shortDescription": "",
-            "description": String(nft.description),
-            "tags": [
-              "16x16 emotes by tomcat94",
-              "side view",
-              "pixel art",
-              "emote",
-              "ui"
-            ],
-            "objectAssets": [
-              {
-                "object": {
-                  "adaptCollisionMaskAutomatically": true,
-                  "assetStoreId": "",
-                  "name": String(nft.name),
-                  "type": "Sprite",
-                  "updateIfNotVisible": false,
-                  "variables": [],
-                  "effects": [],
-                  "behaviors": [],
-                  "animations": [
-                    {
-                      "name": "",
-                      "useMultipleDirections": false,
-                      "directions": [
-                        {
-                          "looping": true,
-                          "timeBetweenFrames": 0.025,
-                          "sprites": [
-                            {
-                              "hasCustomCollisionMask": true,
-                              "image":String(nft.name),
-                              "points": [],
-                              "originPoint": {
-                                "name": "origine",
-                                "x": 0,
-                                "y": 0
-                              },
-                              "centerPoint": {
-                                "automatic": true,
-                                "name": "centre",
-                                "x": 0,
-                                "y": 0
-                              },
-                              "customCollisionMask": [
-                                [
-                                  {
-                                    "x": 2,
-                                    "y": 1
-                                  },
-                                  {
-                                    "x": 14,
-                                    "y": 1
-                                  },
-                                  {
-                                    "x": 14,
-                                    "y": 12
-                                  },
-                                  {
-                                    "x": 2,
-                                    "y": 12
-                                  }
-                                ]
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-=======
-      const imagURL = external_url + nft.image;
-
-      const nftShortHeader = {
-        animationsCount: 1,
-        dominantColors: [526344],
-        height: 16,
-        id: String(Number(nft.tokenId)),
-        license: 'CC0 (public domain)',
-        maxFramesCount: 1,
-        name: String(nft.name),
-        objectType: 'sprite',
-        previewImageUrls: [String(imagURL)],
-        shortDescription: '',
-        tags: [
-          '16x16 rpg item pack',
-          'side view',
-          'pixel art',
-          'rpg',
-          'weapon',
-          'sword',
-        ],
-        width: 16,
-      };
-
+      const assetURL = external_url + nft.image; // 'https://asset-resources.gdevelop.io/public-resources/16x16 Emotes by Tomcat94/8a1eb43ba55539012b4acf8b0b72985f4177e37eb3e26bb1b0b438609d29a7b4_Angry Emote Mid.png';
       const assets = [
         {
           id: String(Number(nft.tokenId)),
           name: String(nft.name),
-          authors: ["Owner's Assets"],
+          authors: ['Tomcat94'],
           license: 'CC0 (public domain)',
           shortDescription: '',
-          animationsCount: 1,
           description: String(nft.description),
-          dominantColors: [526344],
-          gdevelopVersion: '5.0.0-beta100',
-          height: 16,
-          maxFramesCount: 1,
-          objectType: 'sprite',
-          previewImageUrls: [String(imagURL)],
           tags: [
-            '16x16 rpg item pack',
+            '16x16 emotes by tomcat94',
             'side view',
             'pixel art',
-            'rpg',
-            'weapon',
-            'sword',
+            'emote',
+            'ui',
           ],
-          version: '1.0.0',
-          width: 16,
           objectAssets: [
             {
-              // customizations: [], // This is giving error in below assets
               object: {
                 adaptCollisionMaskAutomatically: true,
-                animations: [
-                  { name: '', useMultipleDirections: false, directions: [] },
-                ],
-                behaviors: [],
-                effects: [],
                 assetStoreId: '',
-                name: nft.name,
+                name: String(nft.name),
                 type: 'Sprite',
                 updateIfNotVisible: false,
                 variables: [],
+                effects: [],
+                behaviors: [],
+                animations: [
+                  {
+                    name: '',
+                    useMultipleDirections: false,
+                    directions: [
+                      {
+                        looping: true,
+                        timeBetweenFrames: 0.025,
+                        sprites: [
+                          {
+                            hasCustomCollisionMask: true,
+                            image: String(nft.name),
+                            points: [],
+                            originPoint: {
+                              name: 'origine',
+                              x: 0,
+                              y: 0,
+                            },
+                            centerPoint: {
+                              automatic: true,
+                              name: 'centre',
+                              x: 0,
+                              y: 0,
+                            },
+                            customCollisionMask: [
+                              [
+                                {
+                                  x: 2,
+                                  y: 1,
+                                },
+                                {
+                                  x: 14,
+                                  y: 1,
+                                },
+                                {
+                                  x: 14,
+                                  y: 12,
+                                },
+                                {
+                                  x: 2,
+                                  y: 12,
+                                },
+                              ],
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
               },
+              customization: [],
               requiredExtensions: [],
               resources: [
                 {
                   alwaysLoaded: false,
-                  file: String(imagURL),
+                  file: assetURL,
                   kind: 'image',
                   metadata: '',
-                  name: String(nft.name + '.png'),
+                  name: String(nft.name),
+                  smoothed: true,
+                  userAdded: false,
                   origin: {
-                    identifier: String(imagURL),
                     name: 'gdevelop-asset-store',
-                    smoothed: true,
-                    userAdded: false,
+                    identifier: assetURL,
                   },
->>>>>>> e388719f75cefef0fe1531449ae442cda6e87de4
                 },
-                "customization": [],
-                "requiredExtensions": [],
-                "resources": [
-                  {
-                    "alwaysLoaded": false,
-                    "file": assetURL,
-                    "kind": "image",
-                    "metadata": "",
-                    "name": String(nft.name),
-                    "smoothed": true,
-                    "userAdded": false,
-                    "origin": {
-                      "name": "gdevelop-asset-store",
-                      "identifier": assetURL
-                    }
-                  }
-                ]
-              }
-            ],
-            "gdevelopVersion": "5.0.0-beta100",
-            "version": "1.0.0",
-            "animationsCount": 1,
-            "maxFramesCount": 1,
-            "objectType": "sprite",
-            "previewImageUrls": [
-              assetURL
-            ],
-            "dominantColors": [
-              16316664,
-              526344
-            ],
-            "width": 16,
-            "height": 16
+              ],
+            },
+          ],
+          gdevelopVersion: '5.0.0-beta100',
+          version: '1.0.0',
+          animationsCount: 1,
+          maxFramesCount: 1,
+          objectType: 'sprite',
+          previewImageUrls: [assetURL],
+          dominantColors: [16316664, 526344],
+          width: 16,
+          height: 16,
         },
       ];
-      console.log('nft hardcoded asset: ', assets[0]);
+
       setIsAssetBeingInstalled(true);
 
       try {
-        const isPrivate = isPrivateAsset(nftShortHeader);
-        if (isPrivate) {
-          const canUserInstallPrivateAsset = await canInstallPrivateAsset();
-          if (!canUserInstallPrivateAsset) {
-            await showAlert({
-              title: t`Save your project`,
-              message: t`You need to save this project as a cloud project to install this asset. Please save your project and try again.`,
-            });
-            setIsAssetBeingInstalled(false);
-            return false;
-          }
-        }
         const asset = assets[0];
         const requiredExtensionInstallation = await checkRequiredExtensionsUpdateForAssets(
           {
@@ -482,7 +380,7 @@ function NewObjectDialog({
         );
         const shouldUpdateExtension =
           requiredExtensionInstallation.outOfDateExtensionShortHeaders.length >
-          0 &&
+            0 &&
           (await showExtensionUpdateConfirmation(
             requiredExtensionInstallation.outOfDateExtensionShortHeaders
           ));
@@ -493,17 +391,11 @@ function NewObjectDialog({
           project,
         });
 
-        const installOutput = isPrivate
-          ? await installPrivateAsset({
-              asset,
-              project,
-              objectsContainer,
-            })
-          : await installPublicAsset({
-              asset,
-              project,
-              objectsContainer,
-            });
+        const installOutput = await installPublicAsset({
+          asset,
+          project,
+          objectsContainer,
+        });
         if (!installOutput) {
           throw new Error('Unable to install private Asset.');
         }
@@ -513,8 +405,8 @@ function NewObjectDialog({
           name: asset.name,
           assetPackName: asset.name,
           assetPackTag: asset.tags[0],
-          assetPackId: asset.id,
-          assetPackKind: isPrivate ? 'private' : 'public',
+          assetPackId: null,
+          assetPackKind: 'public',
         });
 
         onObjectsAddedFromAssets(installOutput.createdObjects);
@@ -524,355 +416,20 @@ function NewObjectDialog({
         return true;
       } catch (error) {
         console.error('Error while installing the NFT:', error);
-        showAlert({
-          title: t`Could not install the asset`,
-          message: t`There was an error while installing the asset "${
-            nftShortHeader.name
-          }". Verify your internet connection or try again later.`,
-        });
         setIsAssetBeingInstalled(false);
         return false;
       }
     },
     [
+      setIsAssetBeingInstalled,
       project,
       showExtensionUpdateConfirmation,
       eventsFunctionsExtensionsState,
-      installPrivateAsset,
       objectsContainer,
-      onObjectsAddedFromAssets,
       resourceManagementProps,
-      canInstallPrivateAsset,
-      showAlert,
+      onObjectsAddedFromAssets,
     ]
   );
-
-  // new code not working for private assets
-
-  // const onInstallNFT = React.useCallback(
-  //   async nft => {
-  //     if (!nft) return false;
-
-  //     // const assets = [{
-  //     //   name: nft.name,
-  //     //   tokenId: nft.tokenId,
-  //     //   type:
-  //     // }];
-  //     const external_url = 'https://gateway.pinata.cloud/';
-  //     const imagURL = external_url + nft.image;
-
-  //     const nftShortHeader = {
-  //       animationsCount: 1,
-  //       dominantColors: [526344],
-  //       height: 16,
-  //       id: String(Number(nft.tokenId)),
-  //       license: 'CC0 (public domain)',
-  //       maxFramesCount: 1,
-  //       name: String(nft.name),
-  //       objectType: 'sprite',
-  //       previewImageUrls: [String(imagURL)],
-  //       shortDescription: '',
-  //       tags: [
-  //         '16x16 rpg item pack',
-  //         'side view',
-  //         'pixel art',
-  //         'rpg',
-  //         'weapon',
-  //         'sword',
-  //       ],
-  //       width: 16,
-  //     };
-
-  //     const assets = [
-  //       {
-  //         id: String(Number(nft.tokenId)),
-  //         name: String(nft.name),
-  //         authors: ["Owner's Assets"],
-  //         license: 'CC0 (public domain)',
-  //         shortDescription: '',
-  //         animationsCount: 1,
-  //         description: String(nft.description),
-  //         dominantColors: [526344],
-  //         gdevelopVersion: '5.0.0-beta100',
-  //         height: 16,
-  //         maxFramesCount: 1,
-  //         objectType: 'sprite',
-  //         previewImageUrls: [String(imagURL)],
-  //         tags: [
-  //           '16x16 rpg item pack',
-  //           'side view',
-  //           'pixel art',
-  //           'rpg',
-  //           'weapon',
-  //           'sword',
-  //         ],
-  //         version: '1.0.0',
-  //         width: 16,
-  //         objectAssets: [
-  //           {
-  //             // customizations: [], // This is giving error in below assets
-  //             object: {
-  //               adaptCollisionMaskAutomatically: true,
-  //               animations: [
-  //                 { name: '', useMultipleDirections: false, directions: [] },
-  //               ],
-  //               behaviors: [],
-  //               effects: [],
-  //               assetStoreId: '',
-  //               name: nft.name,
-  //               type: 'Sprite',
-  //               updateIfNotVisible: false,
-  //               variables: [],
-  //             },
-  //             requiredExtensions: [],
-  //             resources: [
-  //               {
-  //                 alwaysLoaded: false,
-  //                 file: String(imagURL),
-  //                 kind: 'image',
-  //                 metadata: '',
-  //                 name: String(nft.name + '.png'),
-  //                 origin: {
-  //                   identifier: String(imagURL),
-  //                   name: 'gdevelop-asset-store',
-  //                   smoothed: true,
-  //                   userAdded: false,
-  //                 },
-  //               },
-  //             ],
-  //           },
-  //         ],
-  //       },
-  //     ];
-  //     console.log('nft hardcoded asset: ', assets[0]);
-  //     setIsAssetBeingInstalled(true);
-
-  //     try {
-  //       const isPrivate = isPrivateAsset(nftShortHeader);
-  //       if (isPrivate) {
-  //         const canUserInstallPrivateAsset = await canInstallPrivateAsset();
-  //         if (!canUserInstallPrivateAsset) {
-  //           await showAlert({
-  //             title: t`Save your project`,
-  //             message: t`You need to save this project as a cloud project to install this asset. Please save your project and try again.`,
-  //           });
-  //           setIsAssetBeingInstalled(false);
-  //           return false;
-  //         }
-  //       }
-  //       const asset = assets[0];
-
-  //       const requiredExtensionInstallation = await checkRequiredExtensionsUpdateForAssets(
-  //         {
-  //           assets,
-  //           project,
-  //         }
-  //       );
-  //       const shouldUpdateExtension =
-  //         requiredExtensionInstallation.outOfDateExtensionShortHeaders.length >
-  //           0 &&
-  //         (await showExtensionUpdateConfirmation(
-  //           requiredExtensionInstallation.outOfDateExtensionShortHeaders
-  //         ));
-  //       await installRequiredExtensions({
-  //         requiredExtensionInstallation,
-  //         shouldUpdateExtension,
-  //         eventsFunctionsExtensionsState,
-  //         project,
-  //       });
-
-  //       const installOutput = isPrivate
-  //         ? await installPrivateAsset({
-  //             asset,
-  //             project,
-  //             objectsContainer,
-  //           })
-  //         : await installPublicAsset({
-  //             asset,
-  //             project,
-  //             objectsContainer,
-  //           });
-  //       if (!installOutput) {
-  //         throw new Error('Unable to install private Asset.');
-  //       }
-
-  //       sendAssetAddedToProject({
-  //         id: asset.id,
-  //         name: asset.name,
-  //         assetPackName: asset.name,
-  //         assetPackTag: asset.tags[0],
-  //         assetPackId: asset.id,
-  //         assetPackKind: isPrivate ? 'private' : 'public',
-  //       });
-
-  //       onObjectsAddedFromAssets(installOutput.createdObjects);
-
-  //       await resourceManagementProps.onFetchNewlyAddedResources();
-  //       setIsAssetBeingInstalled(false);
-  //       return true;
-  //     } catch (error) {
-  //       console.error('Error while installing the NFT:', error);
-  //       showAlert({
-  //         title: t`Could not install the asset`,
-  //         message: t`There was an error while installing the asset "${
-  //           nftShortHeader.name
-  //         }". Verify your internet connection or try again later.`,
-  //       });
-  //       setIsAssetBeingInstalled(false);
-  //       return false;
-  //     }
-  //   },
-  //   [
-  //     project,
-  //     showExtensionUpdateConfirmation,
-  //     eventsFunctionsExtensionsState,
-  //     installPrivateAsset,
-  //     objectsContainer,
-  //     onObjectsAddedFromAssets,
-  //     resourceManagementProps,
-  //     canInstallPrivateAsset,
-  //     showAlert,
-  //   ]
-  // );
-
-  // Old code working but image not showing
-  // const onInstallNFT = React.useCallback(
-  //   async nft => {
-  //     if (!nft) return false;
-
-  //     // const assets = [{
-  //     //   name: nft.name,
-  //     //   tokenId: nft.tokenId,
-  //     //   type:
-  //     // }];
-  //     const external_url = 'https://gateway.pinata.cloud/';
-  //     const imagURL = external_url + nft.image;
-
-  //     const assets = [
-  //       {
-  //         id: String(Number(nft.tokenId)),
-  //         name: String(nft.name),
-  //         authors: ["Owner's Assets"],
-  //         license: 'CC0 (public domain)',
-  //         shortDescription: '',
-  //         animationsCount: 1,
-  //         description: String(nft.description),
-  //         dominantColors: [526344],
-  //         gdevelopVersion: '5.0.0-beta100',
-  //         height: 16,
-  //         maxFramesCount: 1,
-  //         objectType: 'sprite',
-  //         previewImageUrls: [String(imagURL)],
-  //         tags: [
-  //           '16x16 rpg item pack',
-  //           'side view',
-  //           'pixel art',
-  //           'rpg',
-  //           'weapon',
-  //           'sword',
-  //         ],
-  //         version: '1.0.0',
-  //         width: 16,
-  //         objectAssets: [
-  //           {
-  //             // customizations: [], // This is giving error in below assets
-  //             object: {
-  //               adaptCollisionMaskAutomatically: true,
-  //               animations: [
-  //                 { name: '', useMultipleDirections: false, directions: [] },
-  //               ],
-  //               behaviors: [],
-  //               effects: [],
-  //               assetStoreId: '',
-  //               name: nft.name,
-  //               type: 'Sprite',
-  //               updateIfNotVisible: false,
-  //               variables: [],
-  //             },
-  //             requiredExtensions: [],
-  //             resources: [
-  //               {
-  //                 alwaysLoaded: false,
-  //                 file: String(imagURL),
-  //                 kind: 'image',
-  //                 metadata: '',
-  //                 name: String(nft.name + '.png'),
-  //                 origin: {
-  //                   identifier: String(imagURL),
-  //                   name: 'gdevelop-asset-store',
-  //                   smoothed: true,
-  //                   userAdded: false,
-  //                 },
-  //               },
-  //             ],
-  //           },
-  //         ],
-  //       },
-  //     ];
-
-  //     setIsAssetBeingInstalled(true);
-
-  //     try {
-  //       const asset = assets[0];
-
-  //       const requiredExtensionInstallation = await checkRequiredExtensionsUpdateForAssets(
-  //         {
-  //           assets,
-  //           project,
-  //         }
-  //       );
-  //       const shouldUpdateExtension =
-  //         requiredExtensionInstallation.outOfDateExtensionShortHeaders.length >
-  //           0 &&
-  //         (await showExtensionUpdateConfirmation(
-  //           requiredExtensionInstallation.outOfDateExtensionShortHeaders
-  //         ));
-  //       await installRequiredExtensions({
-  //         requiredExtensionInstallation,
-  //         shouldUpdateExtension,
-  //         eventsFunctionsExtensionsState,
-  //         project,
-  //       });
-
-  //       const installOutput = await installPublicAsset({
-  //         asset,
-  //         project,
-  //         objectsContainer,
-  //       });
-  //       if (!installOutput) {
-  //         throw new Error('Unable to install private Asset.');
-  //       }
-
-  //       sendAssetAddedToProject({
-  //         id: asset.id,
-  //         name: asset.name,
-  //         assetPackName: asset.name,
-  //         assetPackTag: asset.tags[0],
-  //         assetPackId: null,
-  //         assetPackKind: 'public',
-  //       });
-
-  //       onObjectsAddedFromAssets(installOutput.createdObjects);
-
-  //       await resourceManagementProps.onFetchNewlyAddedResources();
-  //       setIsAssetBeingInstalled(false);
-  //       return true;
-  //     } catch (error) {
-  //       console.error('Error while installing the NFT:', error);
-  //       setIsAssetBeingInstalled(false);
-  //       return false;
-  //     }
-  //   },
-  //   [
-  //     setIsAssetBeingInstalled,
-  //     project,
-  //     showExtensionUpdateConfirmation,
-  //     eventsFunctionsExtensionsState,
-  //     objectsContainer,
-  //     resourceManagementProps,
-  //     onObjectsAddedFromAssets,
-  //   ]
-  // );
 
   const onInstallAsset = React.useCallback(
     async (assetShortHeader): Promise<boolean> => {
@@ -894,7 +451,10 @@ function NewObjectDialog({
         }
         const assets = await fetchAssets([assetShortHeader]);
 
-        console.log("\n\n\n\n\\n%s\n\n\n\n\n",JSON.stringify({assets},null,2))
+        console.log(
+          '\n\n\n\n\\n%s\n\n\n\n\n',
+          JSON.stringify({ assets }, null, 2)
+        );
 
         console.log('assets in new dialog: ', assets);
         const asset = assets[0];
@@ -908,7 +468,7 @@ function NewObjectDialog({
         );
         const shouldUpdateExtension =
           requiredExtensionInstallation.outOfDateExtensionShortHeaders.length >
-          0 &&
+            0 &&
           (await showExtensionUpdateConfirmation(
             requiredExtensionInstallation.outOfDateExtensionShortHeaders
           ));
@@ -920,15 +480,15 @@ function NewObjectDialog({
         });
         const installOutput = isPrivate
           ? await installPrivateAsset({
-            asset,
-            project,
-            objectsContainer,
-          })
+              asset,
+              project,
+              objectsContainer,
+            })
           : await installPublicAsset({
-            asset,
-            project,
-            objectsContainer,
-          });
+              asset,
+              project,
+              objectsContainer,
+            });
         if (!installOutput) {
           throw new Error('Unable to install private Asset.');
         }
@@ -952,8 +512,9 @@ function NewObjectDialog({
         console.error('Error while installing the asset:', error);
         showAlert({
           title: t`Could not install the asset`,
-          message: t`There was an error while installing the asset "${assetShortHeader.name
-            }". Verify your internet connection or try again later.`,
+          message: t`There was an error while installing the asset "${
+            assetShortHeader.name
+          }". Verify your internet connection or try again later.`,
         });
         setIsAssetBeingInstalled(false);
         return false;
@@ -995,7 +556,7 @@ function NewObjectDialog({
         );
         const shouldUpdateExtension =
           requiredExtensionInstallation.outOfDateExtensionShortHeaders.length >
-          0 &&
+            0 &&
           (await showExtensionUpdateConfirmation(
             requiredExtensionInstallation.outOfDateExtensionShortHeaders
           ));
@@ -1011,8 +572,9 @@ function NewObjectDialog({
         console.error('Error while creating the object:', error);
         showAlert({
           title: t`Could not create the object`,
-          message: t`There was an error while creating the object "${selectedCustomObjectEnumeratedMetadata.fullName
-            }". Verify your internet connection or try again later.`,
+          message: t`There was an error while creating the object "${
+            selectedCustomObjectEnumeratedMetadata.fullName
+          }". Verify your internet connection or try again later.`,
         });
       } finally {
         setIsAssetBeingInstalled(false);
@@ -1032,9 +594,9 @@ function NewObjectDialog({
     () => {
       return assetShortHeadersSearchResults
         ? getAssetShortHeadersToDisplay(
-          assetShortHeadersSearchResults,
-          selectedFolders
-        )
+            assetShortHeadersSearchResults,
+            selectedFolders
+          )
         : [];
     },
     [assetShortHeadersSearchResults, selectedFolders]
@@ -1118,7 +680,7 @@ function NewObjectDialog({
       />
     ) : null;
 
-  const assetStore = React.useRef <? AssetStoreInterface > (null);
+  const assetStore = React.useRef<?AssetStoreInterface>(null);
   const handleClose = React.useCallback(
     () => {
       assetStore.current && assetStore.current.onClose();
@@ -1157,10 +719,10 @@ function NewObjectDialog({
               openedAssetPack
                 ? () => setIsAssetPackDialogInstallOpen(true)
                 : openedAssetShortHeader
-                  ? async () => {
+                ? async () => {
                     await onInstallAsset(openedAssetShortHeader);
                   }
-                  : undefined
+                : undefined
             }
             open
             flexBody
@@ -1246,13 +808,13 @@ function NewObjectDialog({
 
             {fetchMyNFTsClicked
               ? myNFTs.map(nft => (
-                <div
-                  key={nft.tokenId}
-                  onClick={() => handleNFTCardClick(nft)}
-                >
-                  <NFTCard nft={nft} onProfilePage={true} />
-                </div>
-              ))
+                  <div
+                    key={nft.tokenId}
+                    onClick={() => handleNFTCardClick(nft)}
+                  >
+                    <NFTCard nft={nft} onProfilePage={true} />
+                  </div>
+                ))
               : null}
           </Dialog>
           {isAssetPackDialogInstallOpen &&
@@ -1290,8 +852,6 @@ const NewObjectDialogWithErrorBoundary = (props: Props) => (
 );
 
 export default NewObjectDialogWithErrorBoundary;
-
-
 
 /*
 \n{
