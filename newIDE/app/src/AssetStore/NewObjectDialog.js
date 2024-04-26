@@ -267,6 +267,7 @@ function NewObjectDialog({
       //   type:
       // }];
       const external_url = 'https://gateway.pinata.cloud/';
+<<<<<<< HEAD
        const assetURL =external_url + nft.image; // 'https://asset-resources.gdevelop.io/public-resources/16x16 Emotes by Tomcat94/8a1eb43ba55539012b4acf8b0b72985f4177e37eb3e26bb1b0b438609d29a7b4_Angry Emote Mid.png'; 
       const assets = [
           {
@@ -346,6 +347,65 @@ function NewObjectDialog({
                       ]
                     }
                   ]
+=======
+      const imagURL = external_url + nft.image;
+
+      const assets = [
+        {
+          id: String(Number(nft.tokenId)),
+          name: String(nft.name),
+          authors: ["Owner's Assets"],
+          license: 'CC0 (public domain)',
+          shortDescription: '',
+          animationsCount: 1,
+          description: String(nft.description),
+          dominantColors: [526344],
+          gdevelopVersion: '5.0.0-beta100',
+          height: 16,
+          maxFramesCount: 1,
+          objectType: 'sprite',
+          previewImageUrls: [String(imagURL)],
+          tags: [
+            '16x16 rpg item pack',
+            'side view',
+            'pixel art',
+            'rpg',
+            'weapon',
+            'sword',
+          ],
+          version: '1.0.0',
+          width: 16,
+          objectAssets: [
+            {
+              // customizations: [], // This is giving error in below assets
+              object: {
+                adaptCollisionMaskAutomatically: true,
+                animations: [
+                  { name: '', useMultipleDirections: false, directions: [] },
+                ],
+                behaviors: [],
+                effects: [],
+                assetStoreId: '',
+                name: nft.name,
+                type: 'Sprite',
+                updateIfNotVisible: false,
+                variables: [],
+              },
+              requiredExtensions: [],
+              resources: [
+                {
+                  alwaysLoaded: false,
+                  file: String(imagURL),
+                  kind: 'image',
+                  metadata: '',
+                  name: String(nft.name + '.png'),
+                  origin: {
+                    identifier: String(imagURL),
+                    name: 'gdevelop-asset-store',
+                    smoothed: true,
+                    userAdded: false,
+                  },
+>>>>>>> e388719f75cefef0fe1531449ae442cda6e87de4
                 },
                 "customization": [],
                 "requiredExtensions": [],
