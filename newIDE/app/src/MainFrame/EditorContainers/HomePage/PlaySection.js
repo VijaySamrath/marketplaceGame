@@ -5,6 +5,10 @@ import SectionContainer, { SectionRow } from './SectionContainer';
 import GDevelopThemeContext from '../../../UI/Theme/GDevelopThemeContext';
 import PlaceHolderLoader from '../../../UI/PlaceholderLoader';
 import ErrorBoundary from '../../../UI/ErrorBoundary';
+import { useResponsiveWindowSize } from '../../../UI/Responsive/ResponsiveWindowMeasurer';
+import RaisedButton from '../../../UI/RaisedButton';
+import Add from '../../../UI/CustomSvgIcons/Add';
+import GameNft from '../../../pages/game-nft';
 
 const styles = {
   iframe: {
@@ -16,7 +20,9 @@ const PlaySection = () => {
   const gdevelopTheme = React.useContext(GDevelopThemeContext);
   const paletteType = gdevelopTheme.palette.type;
   const [iframeHeight, setIframeHeight] = React.useState(null);
-
+  const [showGameForm, setShowGameForm] = React.useState(false); // Add state for showing CreateNFT
+  const { windowSize, isMobile, isLandscape } = useResponsiveWindowSize();
+  
   window.addEventListener('message', event => {
     if (
       event.origin === 'https://gd.games' &&
@@ -32,7 +38,26 @@ const PlaySection = () => {
       flexBody
       subtitleText={<Trans>Explore games made by others</Trans>}
     >
-      <SectionRow expand>
+               {/* Render RaisedButton conditionally */}
+               <RaisedButton
+        primary
+        fullWidth= {false}
+        label={
+          isMobile ? (
+            <Trans>Publish</Trans>
+          ) : (
+            <Trans>Publish a Game</Trans>
+          )
+        }
+        onClick={() => {
+          showGameForm ? setShowGameForm(false) : setShowGameForm(true);
+        }}
+        icon={<Add fontSize="small" />}
+        id="play-publish-game-button"
+      />
+      {/* Render CreateNFT conditionally */}
+      {showGameForm && <GameNft/>}
+      {/* <SectionRow expand>
         <iframe
           src={`https://gd.games/embedded/${paletteType}`}
           title="gdgames"
@@ -40,7 +65,7 @@ const PlaySection = () => {
           scrolling="no" // This is deprecated, but this is the only way to disable the scrollbar.
         />
         {!iframeHeight && <PlaceHolderLoader />}
-      </SectionRow>
+      </SectionRow> */}
     </SectionContainer>
   );
 };

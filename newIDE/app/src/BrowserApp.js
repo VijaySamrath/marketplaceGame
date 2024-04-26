@@ -30,6 +30,7 @@ import BrowserResourceFetcher from './ProjectsStorage/ResourceFetcher/BrowserRes
 import BrowserEventsFunctionsExtensionOpener from './EventsFunctionsExtensionsLoader/Storage/BrowserEventsFunctionsExtensionOpener';
 import BrowserEventsFunctionsExtensionWriter from './EventsFunctionsExtensionsLoader/Storage/BrowserEventsFunctionsExtensionWriter';
 import BrowserLoginProvider from './LoginProvider/BrowserLoginProvider';
+import { GameProvider } from './GameContext/GameContext'
 import { NFTProvider } from './context/NFTContext';
 
 export const create = (authentication: Authentication) => {
@@ -42,6 +43,7 @@ export const create = (authentication: Authentication) => {
 
   app = (
     <NFTProvider>
+    <GameProvider>
       <Providers
         authentication={authentication}
         disableCheckForUpdates={!!appArguments['disable-update-check']}
@@ -109,6 +111,7 @@ export const create = (authentication: Authentication) => {
           </ProjectStorageProviders>
         )}
       </Providers>
+      </GameProvider>
     </NFTProvider>
   );
 
