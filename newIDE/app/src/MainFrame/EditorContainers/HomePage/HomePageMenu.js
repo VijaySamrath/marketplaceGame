@@ -40,14 +40,8 @@ export const styles = {
 };
 
 export type HomeTab =
-  | 'get-started'
-  | 'manage'
-  | 'build'
-  | 'learn'
-  | 'play'
-  | 'community'
-  | 'shop'
-  | 'team-view';
+  // | 'get-started'
+  'manage' | 'build' | 'learn' | 'play' | 'community' | 'shop' | 'team-view';
 
 export type GetIconFunction = ({
   color: string,
@@ -62,14 +56,14 @@ export type HomePageMenuTab = {|
 |};
 
 const homePageMenuTabs: { [tab: string]: HomePageMenuTab } = {
-  'get-started': {
-    label: <Trans>Get Started</Trans>,
-    tab: 'get-started',
-    id: 'home-get-started-tab',
-    getIcon: ({ color, fontSize }) => (
-      <SunIcon fontSize={fontSize} color={color} />
-    ),
-  },
+  // 'get-started': {
+  //   label: <Trans>Get Started</Trans>,
+  //   tab: 'get-started',
+  //   id: 'home-get-started-tab',
+  //   getIcon: ({ color, fontSize }) => (
+  //     <SunIcon fontSize={fontSize} color={color} />
+  //   ),
+  // },
   build: {
     label: <Trans>Build</Trans>,
     tab: 'build',
@@ -78,14 +72,14 @@ const homePageMenuTabs: { [tab: string]: HomePageMenuTab } = {
       <PickAxeIcon fontSize={fontSize} color={color} />
     ),
   },
-  manage: {
-    label: <Trans>Manage</Trans>,
-    tab: 'manage',
-    id: 'home-manage-tab',
-    getIcon: ({ color, fontSize }) => (
-      <GraphsIcon fontSize={fontSize} color={color} />
-    ),
-  },
+  // manage: {
+  //   label: <Trans>Manage</Trans>,
+  //   tab: 'manage',
+  //   id: 'home-manage-tab',
+  //   getIcon: ({ color, fontSize }) => (
+  //     <GraphsIcon fontSize={fontSize} color={color} />
+  //   ),
+  // },
   shop: {
     label: <Trans>Shop</Trans>,
     tab: 'shop',
@@ -94,14 +88,14 @@ const homePageMenuTabs: { [tab: string]: HomePageMenuTab } = {
       <StoreIcon fontSize={fontSize} color={color} />
     ),
   },
-  learn: {
-    label: <Trans>Learn</Trans>,
-    tab: 'learn',
-    id: 'home-learn-tab',
-    getIcon: ({ color, fontSize }) => (
-      <SchoolIcon fontSize={fontSize} color={color} />
-    ),
-  },
+  // learn: {
+  //   label: <Trans>Learn</Trans>,
+  //   tab: 'learn',
+  //   id: 'home-learn-tab',
+  //   getIcon: ({ color, fontSize }) => (
+  //     <SchoolIcon fontSize={fontSize} color={color} />
+  //   ),
+  // },
   play: {
     label: <Trans>Play</Trans>,
     tab: 'play',
@@ -110,14 +104,14 @@ const homePageMenuTabs: { [tab: string]: HomePageMenuTab } = {
       <GoogleControllerIcon fontSize={fontSize} color={color} />
     ),
   },
-  community: {
-    label: <Trans>Community</Trans>,
-    tab: 'community',
-    id: 'home-community-tab',
-    getIcon: ({ color, fontSize }) => (
-      <WebIcon fontSize={fontSize} color={color} />
-    ),
-  },
+  // community: {
+  //   label: <Trans>Community</Trans>,
+  //   tab: 'community',
+  //   id: 'home-community-tab',
+  //   getIcon: ({ color, fontSize }) => (
+  //     <WebIcon fontSize={fontSize} color={color} />
+  //   ),
+  // },
   'team-view': {
     label: <Trans>Classrooms</Trans>,
     tab: 'team-view',
@@ -136,14 +130,14 @@ export const getTabsToDisplay = ({
   const displayTeamViewTab = profile && profile.isTeacher;
   const displayPlayTab = !profile || !profile.isStudent;
   const tabs = [
-    'get-started',
+    // 'get-started',
     'build',
     displayTeamViewTab ? 'team-view' : null,
-    'manage',
+    // 'manage',
     'shop',
-    'learn',
+    // 'learn',
     displayPlayTab ? 'play' : null,
-    'community',
+    // 'community',
   ].filter(Boolean);
   return tabs.map(tab => homePageMenuTabs[tab]);
 };
