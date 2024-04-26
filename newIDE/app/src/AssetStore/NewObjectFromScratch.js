@@ -387,8 +387,14 @@ export default function NewObjectFromScratch({
                       if (enumeratedObjectMetadata.assetStorePackTag) {
                         // When the object is from an asset store, display the objects from the pack
                         // so that the user can either pick a similar object or skip to create a new one.
+                        console.log('hello');
                         onCustomObjectSelected(enumeratedObjectMetadata);
                       } else {
+                        console.log('hello1');
+                        console.log(
+                          'enumeratedObjectMetadata: ',
+                          enumeratedObjectMetadata
+                        );
                         onCreateNewObject(enumeratedObjectMetadata.name);
                       }
                     }}

@@ -183,7 +183,7 @@ export const PrivateGameTemplateStoreStateProvider = ({
               ];
               correspondingGameTemplate.name = nftItem.name;
               correspondingGameTemplate.description = nftItem.description;
-              correspondingGameTemplate.prices.value = nftItem.price;
+              correspondingGameTemplate.prices.value = nftItem.price; // cannot change the value of value
               console.log(`change:${index}: $`, correspondingGameTemplate);
               // Update other properties as needed
               correspondingGameTemplates.push(correspondingGameTemplate);

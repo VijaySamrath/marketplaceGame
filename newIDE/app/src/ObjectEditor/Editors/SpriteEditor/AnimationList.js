@@ -410,6 +410,7 @@ const AnimationList = React.forwardRef<
 
     const importImages = React.useCallback(
       async () => {
+        console.log('hello3');
         const resources = await resourceManagementProps.onChooseResource({
           initialSourceName: resourceSources[0].name,
           multiSelection: true,

@@ -215,6 +215,8 @@ export const getAuthorizationTokenForPrivateAssets = async (
     userId: string,
   |}
 ): Promise<string> => {
+  // Gola-k start
+  // Below lines could be commented for private onInstallNFT
   const authorizationHeader = await getAuthorizationHeader();
   const response = await client.post(
     '/asset-pack/action/authorize',
@@ -224,6 +226,7 @@ export const getAuthorizationTokenForPrivateAssets = async (
       params: { userId },
     }
   );
+  console.log(response.data);
   return response.data;
 };
 
@@ -258,13 +261,15 @@ export const createProductAuthorizedUrl = (
 
 export const isPrivateAssetResourceAuthorizedUrl = (url: string): boolean =>
   url.startsWith('https://private-assets.gdevelop.io/') ||
-  url.startsWith('https://private-assets-dev.gdevelop.io/');
+  url.startsWith('https://private-assets-dev.gdevelop.io/') ||
+  url.startsWith('https://gateway.pinata.cloud/');
 
 export const isPrivateGameTemplateResourceAuthorizedUrl = (
   url: string
 ): boolean =>
   url.startsWith('https://private-game-templates.gdevelop.io/') ||
-  url.startsWith('https://private-game-templates-dev.gdevelop.io/');
+  url.startsWith('https://private-game-templates-dev.gdevelop.io/') ||
+  url.startsWith('https://gateway.pinata.cloud/');
 
 export const isProductAuthorizedResourceUrl = (url: string): boolean =>
   isPrivateAssetResourceAuthorizedUrl(url) ||
