@@ -74,23 +74,24 @@ export const useFetchAssets = () => {
   ): Promise<Array<Asset>> => {
     const fetchedAssets = await PromisePool.withConcurrency(6)
       .for(assetShortHeaders)
-      .process<Asset>(async assetShortHeader => {
+      .process < Asset > (async assetShortHeader => {
         const asset = isPrivateAsset(assetShortHeader)
           ? await fetchPrivateAsset(assetShortHeader, {
-              environment,
-            })
+            environment,
+          })
           : await getPublicAsset(assetShortHeader, { environment });
         if (!asset) {
           throw new Error(
             'Unable to install the asset because it could not be fetched.'
           );
         }
+
         return asset;
       });
     if (fetchedAssets.errors.length) {
       throw new Error(
         'Error(s) while installing assets. The first error is: ' +
-          fetchedAssets.errors[0].message
+        fetchedAssets.errors[0].message
       );
     }
     const assets = fetchedAssets.results;
@@ -98,15 +99,41 @@ export const useFetchAssets = () => {
   };
 };
 
+// export const useFetchNFTAssets = () => {
+//   const { environment } = React.useContext(AssetStoreContext);
+//   const { fetchMyNFTs} = React.useContext(NFTContext);
+
+//   return (
+//     async fetchMyNFTs().then((nfts) => {
+//     await PromisePool.withConcurrency(6)
+//       .for(nfts)
+//       .process(async nft => {
+//         const asset = isPrivateAsset(nft)
+//           ? await fetchPrivateAsset(nft, {
+//             environment,
+//           })
+//           : await getPublicAsset(nft, { environment });
+//         const json = await nft.image;
+//         json.image
+//         return asset;
+//       });
+//   }).catch((e)=>{
+//     throw new Error(e.errors[0].message)
+//     `there is an error with fetching my nft , ${e}`
+//   })
+// );
+// };
+
+
 type Props = {|
   project: gdProject,
-  layout: ?gdLayout,
-  objectsContainer: gdObjectsContainer,
-  resourceManagementProps: ResourceManagementProps,
-  onClose: () => void,
-  onCreateNewObject: (type: string) => void,
-  onObjectsAddedFromAssets: (Array<gdObject>) => void,
-  canInstallPrivateAsset: () => boolean,
+    layout: ?gdLayout,
+      objectsContainer: gdObjectsContainer,
+        resourceManagementProps: ResourceManagementProps,
+          onClose: () => void,
+            onCreateNewObject: (type: string) => void,
+              onObjectsAddedFromAssets: (Array < gdObject >) => void,
+                canInstallPrivateAsset: () => boolean,
 |};
 
 function NewObjectDialog({
@@ -202,11 +229,11 @@ function NewObjectDialog({
   const [
     isAssetBeingInstalled,
     setIsAssetBeingInstalled,
-  ] = React.useState<boolean>(false);
+  ] = React.useState < boolean > (false);
   const [
     selectedCustomObjectEnumeratedMetadata,
     setSelectedCustomObjectEnumeratedMetadata,
-  ] = React.useState<?EnumeratedObjectMetadata>(null);
+  ] = React.useState <? EnumeratedObjectMetadata > (null);
   const eventsFunctionsExtensionsState = React.useContext(
     EventsFunctionsExtensionsContext
   );
@@ -219,6 +246,7 @@ function NewObjectDialog({
   const { showAlert } = useAlertDialog();
 
   const fetchAssets = useFetchAssets();
+  // const fetchNAssets = useFetchNFTAssets();
   const showExtensionUpdateConfirmation = useExtensionUpdateAlertDialog();
 
   // Making onInstallNFT similiar to onInstallEmptyCustomObject and using nft imageurl for object
@@ -232,6 +260,87 @@ function NewObjectDialog({
       //   type:
       // }];
       const external_url = 'https://gateway.pinata.cloud/';
+<<<<<<< HEAD
+       const assetURL =external_url + nft.image; // 'https://asset-resources.gdevelop.io/public-resources/16x16 Emotes by Tomcat94/8a1eb43ba55539012b4acf8b0b72985f4177e37eb3e26bb1b0b438609d29a7b4_Angry Emote Mid.png'; 
+      const assets = [
+          {
+            "id":  String(Number(nft.tokenId)),
+            "name": String(nft.name),
+            "authors": [
+              "Tomcat94"
+            ],
+            "license": "CC0 (public domain)",
+            "shortDescription": "",
+            "description": String(nft.description),
+            "tags": [
+              "16x16 emotes by tomcat94",
+              "side view",
+              "pixel art",
+              "emote",
+              "ui"
+            ],
+            "objectAssets": [
+              {
+                "object": {
+                  "adaptCollisionMaskAutomatically": true,
+                  "assetStoreId": "",
+                  "name": String(nft.name),
+                  "type": "Sprite",
+                  "updateIfNotVisible": false,
+                  "variables": [],
+                  "effects": [],
+                  "behaviors": [],
+                  "animations": [
+                    {
+                      "name": "",
+                      "useMultipleDirections": false,
+                      "directions": [
+                        {
+                          "looping": true,
+                          "timeBetweenFrames": 0.025,
+                          "sprites": [
+                            {
+                              "hasCustomCollisionMask": true,
+                              "image":String(nft.name),
+                              "points": [],
+                              "originPoint": {
+                                "name": "origine",
+                                "x": 0,
+                                "y": 0
+                              },
+                              "centerPoint": {
+                                "automatic": true,
+                                "name": "centre",
+                                "x": 0,
+                                "y": 0
+                              },
+                              "customCollisionMask": [
+                                [
+                                  {
+                                    "x": 2,
+                                    "y": 1
+                                  },
+                                  {
+                                    "x": 14,
+                                    "y": 1
+                                  },
+                                  {
+                                    "x": 14,
+                                    "y": 12
+                                  },
+                                  {
+                                    "x": 2,
+                                    "y": 12
+                                  }
+                                ]
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+=======
       const imagURL = external_url + nft.image;
 
       const nftShortHeader = {
@@ -311,10 +420,41 @@ function NewObjectDialog({
                     smoothed: true,
                     userAdded: false,
                   },
+>>>>>>> e388719f75cefef0fe1531449ae442cda6e87de4
                 },
-              ],
-            },
-          ],
+                "customization": [],
+                "requiredExtensions": [],
+                "resources": [
+                  {
+                    "alwaysLoaded": false,
+                    "file": assetURL,
+                    "kind": "image",
+                    "metadata": "",
+                    "name": String(nft.name),
+                    "smoothed": true,
+                    "userAdded": false,
+                    "origin": {
+                      "name": "gdevelop-asset-store",
+                      "identifier": assetURL
+                    }
+                  }
+                ]
+              }
+            ],
+            "gdevelopVersion": "5.0.0-beta100",
+            "version": "1.0.0",
+            "animationsCount": 1,
+            "maxFramesCount": 1,
+            "objectType": "sprite",
+            "previewImageUrls": [
+              assetURL
+            ],
+            "dominantColors": [
+              16316664,
+              526344
+            ],
+            "width": 16,
+            "height": 16
         },
       ];
       console.log('nft hardcoded asset: ', assets[0]);
@@ -334,7 +474,6 @@ function NewObjectDialog({
           }
         }
         const asset = assets[0];
-
         const requiredExtensionInstallation = await checkRequiredExtensionsUpdateForAssets(
           {
             assets,
@@ -343,7 +482,7 @@ function NewObjectDialog({
         );
         const shouldUpdateExtension =
           requiredExtensionInstallation.outOfDateExtensionShortHeaders.length >
-            0 &&
+          0 &&
           (await showExtensionUpdateConfirmation(
             requiredExtensionInstallation.outOfDateExtensionShortHeaders
           ));
@@ -754,6 +893,9 @@ function NewObjectDialog({
           }
         }
         const assets = await fetchAssets([assetShortHeader]);
+
+        console.log("\n\n\n\n\\n%s\n\n\n\n\n",JSON.stringify({assets},null,2))
+
         console.log('assets in new dialog: ', assets);
         const asset = assets[0];
         console.log('asset in new dialog: ', asset);
@@ -766,7 +908,7 @@ function NewObjectDialog({
         );
         const shouldUpdateExtension =
           requiredExtensionInstallation.outOfDateExtensionShortHeaders.length >
-            0 &&
+          0 &&
           (await showExtensionUpdateConfirmation(
             requiredExtensionInstallation.outOfDateExtensionShortHeaders
           ));
@@ -778,15 +920,15 @@ function NewObjectDialog({
         });
         const installOutput = isPrivate
           ? await installPrivateAsset({
-              asset,
-              project,
-              objectsContainer,
-            })
+            asset,
+            project,
+            objectsContainer,
+          })
           : await installPublicAsset({
-              asset,
-              project,
-              objectsContainer,
-            });
+            asset,
+            project,
+            objectsContainer,
+          });
         if (!installOutput) {
           throw new Error('Unable to install private Asset.');
         }
@@ -810,9 +952,8 @@ function NewObjectDialog({
         console.error('Error while installing the asset:', error);
         showAlert({
           title: t`Could not install the asset`,
-          message: t`There was an error while installing the asset "${
-            assetShortHeader.name
-          }". Verify your internet connection or try again later.`,
+          message: t`There was an error while installing the asset "${assetShortHeader.name
+            }". Verify your internet connection or try again later.`,
         });
         setIsAssetBeingInstalled(false);
         return false;
@@ -854,7 +995,7 @@ function NewObjectDialog({
         );
         const shouldUpdateExtension =
           requiredExtensionInstallation.outOfDateExtensionShortHeaders.length >
-            0 &&
+          0 &&
           (await showExtensionUpdateConfirmation(
             requiredExtensionInstallation.outOfDateExtensionShortHeaders
           ));
@@ -870,9 +1011,8 @@ function NewObjectDialog({
         console.error('Error while creating the object:', error);
         showAlert({
           title: t`Could not create the object`,
-          message: t`There was an error while creating the object "${
-            selectedCustomObjectEnumeratedMetadata.fullName
-          }". Verify your internet connection or try again later.`,
+          message: t`There was an error while creating the object "${selectedCustomObjectEnumeratedMetadata.fullName
+            }". Verify your internet connection or try again later.`,
         });
       } finally {
         setIsAssetBeingInstalled(false);
@@ -892,9 +1032,9 @@ function NewObjectDialog({
     () => {
       return assetShortHeadersSearchResults
         ? getAssetShortHeadersToDisplay(
-            assetShortHeadersSearchResults,
-            selectedFolders
-          )
+          assetShortHeadersSearchResults,
+          selectedFolders
+        )
         : [];
     },
     [assetShortHeadersSearchResults, selectedFolders]
@@ -978,7 +1118,7 @@ function NewObjectDialog({
       />
     ) : null;
 
-  const assetStore = React.useRef<?AssetStoreInterface>(null);
+  const assetStore = React.useRef <? AssetStoreInterface > (null);
   const handleClose = React.useCallback(
     () => {
       assetStore.current && assetStore.current.onClose();
@@ -1017,10 +1157,10 @@ function NewObjectDialog({
               openedAssetPack
                 ? () => setIsAssetPackDialogInstallOpen(true)
                 : openedAssetShortHeader
-                ? async () => {
+                  ? async () => {
                     await onInstallAsset(openedAssetShortHeader);
                   }
-                : undefined
+                  : undefined
             }
             open
             flexBody
@@ -1106,13 +1246,13 @@ function NewObjectDialog({
 
             {fetchMyNFTsClicked
               ? myNFTs.map(nft => (
-                  <div
-                    key={nft.tokenId}
-                    onClick={() => handleNFTCardClick(nft)}
-                  >
-                    <NFTCard nft={nft} onProfilePage={true} />
-                  </div>
-                ))
+                <div
+                  key={nft.tokenId}
+                  onClick={() => handleNFTCardClick(nft)}
+                >
+                  <NFTCard nft={nft} onProfilePage={true} />
+                </div>
+              ))
               : null}
           </Dialog>
           {isAssetPackDialogInstallOpen &&
@@ -1150,3 +1290,124 @@ const NewObjectDialogWithErrorBoundary = (props: Props) => (
 );
 
 export default NewObjectDialogWithErrorBoundary;
+
+
+
+/*
+\n{
+  "assets": [
+    {
+      "id": "743e83981b2af4e113baa2ed6e633cdc7ded4980ab75976d423393bd24adae1c",
+      "name": "Angry Emote Mid",
+      "authors": [
+        "Tomcat94"
+      ],
+      "license": "CC0 (public domain)",
+      "shortDescription": "",
+      "description": "",
+      "tags": [
+        "16x16 emotes by tomcat94",
+        "side view",
+        "pixel art",
+        "emote",
+        "ui"
+      ],
+      "objectAssets": [
+        {
+          "object": {
+            "adaptCollisionMaskAutomatically": true,
+            "assetStoreId": "",
+            "name": "Angry Emote Mid",
+            "type": "Sprite",
+            "updateIfNotVisible": false,
+            "variables": [],
+            "effects": [],
+            "behaviors": [],
+            "animations": [
+              {
+                "name": "",
+                "useMultipleDirections": false,
+                "directions": [
+                  {
+                    "looping": true,
+                    "timeBetweenFrames": 0.025,
+                    "sprites": [
+                      {
+                        "hasCustomCollisionMask": true,
+                        "image": "Angry Emote Mid.png",
+                        "points": [],
+                        "originPoint": {
+                          "name": "origine",
+                          "x": 0,
+                          "y": 0
+                        },
+                        "centerPoint": {
+                          "automatic": true,
+                          "name": "centre",
+                          "x": 0,
+                          "y": 0
+                        },
+                        "customCollisionMask": [
+                          [
+                            {
+                              "x": 2,
+                              "y": 1
+                            },
+                            {
+                              "x": 14,
+                              "y": 1
+                            },
+                            {
+                              "x": 14,
+                              "y": 12
+                            },
+                            {
+                              "x": 2,
+                              "y": 12
+                            }
+                          ]
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "customization": [],
+          "requiredExtensions": [],
+          "resources": [
+            {
+              "alwaysLoaded": false,
+              "file": "https://asset-resources.gdevelop.io/public-resources/16x16 Emotes by Tomcat94/8a1eb43ba55539012b4acf8b0b72985f4177e37eb3e26bb1b0b438609d29a7b4_Angry Emote Mid.png",
+              "kind": "image",
+              "metadata": "",
+              "name": "Angry Emote Mid.png",
+              "smoothed": true,
+              "userAdded": false,
+              "origin": {
+                "name": "gdevelop-asset-store",
+                "identifier": "https://asset-resources.gdevelop.io/public-resources/16x16 Emotes by Tomcat94/8a1eb43ba55539012b4acf8b0b72985f4177e37eb3e26bb1b0b438609d29a7b4_Angry Emote Mid.png"
+              }
+            }
+          ]
+        }
+      ],
+      "gdevelopVersion": "5.0.0-beta100",
+      "version": "1.0.0",
+      "animationsCount": 1,
+      "maxFramesCount": 1,
+      "objectType": "sprite",
+      "previewImageUrls": [
+        "https://asset-resources.gdevelop.io/public-resources/16x16 Emotes by Tomcat94/8a1eb43ba55539012b4acf8b0b72985f4177e37eb3e26bb1b0b438609d29a7b4_Angry Emote Mid.png"
+      ],
+      "dominantColors": [
+        16316664,
+        526344
+      ],
+      "width": 16,
+      "height": 16
+    }
+  ]
+}
+*/
