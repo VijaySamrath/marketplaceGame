@@ -1,5 +1,6 @@
 // @flow
 import * as React from 'react';
+import { useState } from 'react';
 import { Trans } from '@lingui/macro';
 import GridList from '@material-ui/core/GridList';
 import Text from '../UI/Text';
@@ -28,6 +29,8 @@ import {
 import { useDebounce } from '../Utils/UseDebounce';
 import PromotionsSlideshow from '../Promotions/PromotionsSlideshow';
 import { ColumnStackLayout } from '../UI/Layout';
+import NFTCard from '../MainFrame/EditorContainers/HomePage/BuildSection/NFTCard';
+import { NFTContext } from '../context/NFTContext';
 
 const cellSpacing = 2;
 
@@ -317,6 +320,14 @@ export const AssetsHome = React.forwardRef<Props, AssetsHomeInterface>(
       ]
     );
 
+    React.useEffect(() => {
+      fetchNFTs().then(items => {
+        setNfts(items);
+        setNftsCopy(items);
+        setIsLoading(false);
+      });
+    }, []);
+
     const gameTemplateTiles = React.useMemo(
       () => {
         // Only show game templates if the category is not set or is set to "game-template".
@@ -357,6 +368,13 @@ export const AssetsHome = React.forwardRef<Props, AssetsHomeInterface>(
       numberPerPage: 25,
     });
 
+    // Gola-Start
+    const { fetchNFTs } = React.useContext(NFTContext);
+    const [nfts, setNfts] = useState([]);
+    const [nftsCopy, setNftsCopy] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    // Gola-End
+
     return (
       <ScrollView
         ref={scrollView}
@@ -368,6 +386,13 @@ export const AssetsHome = React.forwardRef<Props, AssetsHomeInterface>(
           }
         }}
       >
+        <Line alignItems="center">
+          <GridList cols={5} style={{ width: '100%' }} cellHeight="auto">
+            {nfts.map(nft => (
+              <NFTCard key={nft.tokenId} nft={nft} />
+            ))}
+          </GridList>
+        </Line>
         {openedShopCategory ? null : (
           <>
             <Column>
