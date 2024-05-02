@@ -3,17 +3,20 @@ import { GameContext } from '../GameContext/GameContext';
 
 const Gamenft = () => {
   const {
+    nftCurrency,
     isLoadingNFT,
     handleImageUpload,
     handleFileUpload,
     handleSubmit,
     createGameNft,
+    generateAccessId,
   } = useContext(GameContext);
 
   const [file, setFile] = useState(null);
   const [image, setImage] = useState(null);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [price, setPrice] = useState('');
 
   const handleFileChange = e => {
     setFile(e.target.files[0]);
@@ -31,10 +34,25 @@ const Gamenft = () => {
     setDescription(e.target.value);
   };
 
+  const handlePriceChange(p) {
+    setPrice(prevState => ([
+      ...prevState,
+      p,
+    ]));
+  };
+  
+  // const handlePriceChange = (key, value) => {
+  //   setPrice(prevState => ({
+  //     ...prevState,
+  //     [key]: value,
+  //   }));
+  // };
+  
   const handleFormSubmit = async e => {
     e.preventDefault();
-    const finalURL = await handleSubmit(name, description);
-    // createGameNft(name, finalURL, description, price);
+    const finalURL = await handleSubmit(name, description, price);
+    const accessId = generateAccessId();
+    createGameNft(accessId, finalURL, parseFloat(price));
   };
 
   return (
@@ -63,6 +81,14 @@ const Gamenft = () => {
           placeholder="Description"
           value={description}
           onChange={handleDescriptionChange}
+        />
+        <br />
+        <input
+          type="number" 
+          // step="0.000000000000000001"
+          placeholder="Price (ETH)"
+          // value={price}
+          onChange={e => handlePriceChange(e.target.value)} 
         />
         <br />
         <button type="submit">Submit</button>

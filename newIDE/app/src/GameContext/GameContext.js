@@ -34,6 +34,13 @@ export const GameProvider = ({ children }) => {
   //   const [description, setDescription] = useState('');
   const nftCurrency = 'ETH';
 
+
+  const generateAccessId = () => {
+    const timestamp = Date.now();
+    const randomPart = Math.random().toString(36).substring(7);
+    return `${timestamp}_${randomPart}`;
+  };
+
   const handleFileUpload = async file => {
     const formData = new FormData();
     formData.append('file', file, file.name);
@@ -90,7 +97,8 @@ export const GameProvider = ({ children }) => {
     }
   };
 
-  const handleSubmit = async (name, description) => {
+  const handleSubmit = async (name, description, price) => {
+    const accessId = generateAccessId();
     // Handle form submission to Pinata IPFS
     // Combine finalImageURL, finalFileURL, name, and description into JSON object
     const formData = {
@@ -98,6 +106,8 @@ export const GameProvider = ({ children }) => {
       fileURL: fileURL,
       imageURL: imageURL,
       description: description,
+      price: price,
+      accessId: accessId,
     };
     // e.preventDefault();
     const subdomain = 'https://gateway.pinata.cloud';
@@ -115,7 +125,7 @@ export const GameProvider = ({ children }) => {
           },
         }
       );
-
+      console.log("accessid", accessId);
       const finalURL = `${subdomain}/ipfs/${response.data.IpfsHash}`;
       console.log('Final URL:', finalURL);
       return finalURL;
@@ -130,11 +140,11 @@ export const GameProvider = ({ children }) => {
     console.log('connection: ', connection);
     const provider = new ethers.BrowserProvider(connection);
     const signer = await provider.getSigner();
-
+    
     const price = ethers.parseUnits(formInputPrice, 'ether');
     const contract = fetchContract(signer);
 
-    const transaction = await contract.publishNFT(accessId, price, finalURL);
+    const transaction = await contract.publishNFT(accessId, +parseInt(price), finalURL);
 
     setIsLoadingNFT(true);
     await transaction.wait();
@@ -143,11 +153,13 @@ export const GameProvider = ({ children }) => {
   return (
     <GameContext.Provider
       value={{
+        nftCurrency,
         isLoadingNFT,
         handleImageUpload,
         handleFileUpload,
         handleSubmit,
         createGameNft,
+        generateAccessId,
       }}
     >
       {children}
