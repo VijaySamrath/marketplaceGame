@@ -34,6 +34,7 @@ const ResourceStoreChooser = ({
   createNewResource,
 }: ResourceStoreChooserProps) => {
   return (
+    // Gola-Import: ResourceStore
     <ResourceStore
       onChoose={resource => {
         const chosenResourceUrl = resource.url;

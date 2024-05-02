@@ -343,10 +343,16 @@ export default class PixiResourcesLoader {
 
     const imageResources = resourceNames
       .map(resourceName => {
+        console.log(
+          'resourcesManager.hasResource(resourceName): ',
+          resourcesManager.hasResource(resourceName)
+        );
         if (!resourcesManager.hasResource(resourceName)) {
           return null;
         }
         const resource = resourcesManager.getResource(resourceName);
+        console.log('resource: ', resource);
+        console.log('resource.getKind(): ', resource.getKind());
         if (resource.getKind() !== 'image') {
           return null;
         }
@@ -378,12 +384,14 @@ export default class PixiResourcesLoader {
               isResourceForPixi: true,
             }
           );
+          console.log('ResourcesLoader.getResourceFullUrl, url: ', url);
           PIXI.Assets.setPreferences({
             preferWorkers: false,
             preferCreateImageBitmap: false,
             crossOrigin: determineCrossOrigin(url),
           });
           const loadedTexture = await PIXI.Assets.load(url);
+          console.log('loadedTexture: ', loadedTexture);
           loadedTextures[resourceName] = loadedTexture;
           // TODO What if 2 assets share the same file with different settings?
           applyPixiTextureSettings(resource, loadedTexture);
