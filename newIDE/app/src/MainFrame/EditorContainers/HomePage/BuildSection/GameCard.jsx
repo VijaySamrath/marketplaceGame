@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from 'react';
-import { GameContext } from '../../../../GameContext/GameContext'
+import { GameContext } from '../../../../GameContext/GameContext';
 import FlatButton from '../../../../UI/FlatButton';
 import { Trans } from '@lingui/macro';
 import Loader from './Loader';
@@ -9,18 +9,21 @@ const shortenAddress = address =>
   `${address.slice(0, 5)}...${address.slice(address.length - 4)}`;
 
 const GameCard = ({ nft, onProfilePage }) => {
-  const { nftCurrency, buyNFT, isLoadingNFT } = useContext(NFTContext);
+  const { nftCurrency, buyNFT, isLoadingNFT } = useContext(GameContext);
   const [isBought, setIsBought] = useState(false);
   const external_urls = 'https://gateway.pinata.cloud/';
 
-  useEffect(() => {
-    const checkIfBought = async () => {
-      const isNFTBought = await checkNFTBought(nft.id); 
-      setIsBought(isNFTBought);
-    };
+  useEffect(
+    () => {
+      const checkIfBought = async () => {
+        const isNFTBought = await checkNFTBought(nft.id);
+        setIsBought(isNFTBought);
+      };
 
-    checkIfBought();
-  }, [nft.id]);
+      checkIfBought();
+    },
+    [nft.id]
+  );
 
   const handleBuy = async () => {
     await buyNFT(nft);
@@ -28,7 +31,7 @@ const GameCard = ({ nft, onProfilePage }) => {
   };
 
   const handlePlay = () => {
-    // i haveve to redirect to the play section 
+    // i haveve to redirect to the play section
   };
 
   return (

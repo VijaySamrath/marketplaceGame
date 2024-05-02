@@ -7,6 +7,7 @@ const Gamenft = () => {
     handleImageUpload,
     handleFileUpload,
     handleSubmit,
+    createGameNft,
   } = useContext(GameContext);
 
   const [file, setFile] = useState(null);
@@ -30,10 +31,16 @@ const Gamenft = () => {
     setDescription(e.target.value);
   };
 
+  const handleFormSubmit = async e => {
+    e.preventDefault();
+    const finalURL = await handleSubmit(name, description);
+    // createGameNft(name, finalURL, description);
+  };
+
   return (
     <div>
       <h1>Upload Files</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleFormSubmit}>
         <input type="file" onChange={handleFileChange} />
         <button type="button" onClick={() => handleFileUpload(file)}>
           Upload File
