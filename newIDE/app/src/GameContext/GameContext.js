@@ -26,18 +26,15 @@ export const GameProvider = ({ children }) => {
   console.log('client: ', client);
   const [currentAccount, setCurrentAccount] = useState('');
   const [isLoadingNFT, setIsLoadingNFT] = useState(false);
-  //   const [file, setFile] = useState(null);
-  //   const [image, setImage] = useState(null);
-  //   const [name, setName] = useState('');
   const [fileURL, setFileURL] = useState('');
   const [imageURL, setImageURL] = useState('');
-  //   const [description, setDescription] = useState('');
   const nftCurrency = 'ETH';
-
 
   const generateAccessId = () => {
     const timestamp = Date.now();
-    const randomPart = Math.random().toString(36).substring(7);
+    const randomPart = Math.random()
+      .toString(36)
+      .substring(7);
     return `${timestamp}_${randomPart}`;
   };
 
@@ -97,10 +94,11 @@ export const GameProvider = ({ children }) => {
     }
   };
 
-  const handleSubmit = async (name, description, price) => {
+  const handleSubmit = async formInput => {
     const accessId = generateAccessId();
     // Handle form submission to Pinata IPFS
     // Combine finalImageURL, finalFileURL, name, and description into JSON object
+    const { name, description, price } = formInput ?? {};
     const formData = {
       name: name,
       fileURL: fileURL,
@@ -125,7 +123,7 @@ export const GameProvider = ({ children }) => {
           },
         }
       );
-      console.log("accessid", accessId);
+      console.log('accessid', accessId);
       const finalURL = `${subdomain}/ipfs/${response.data.IpfsHash}`;
       console.log('Final URL:', finalURL);
       return finalURL;
@@ -140,11 +138,12 @@ export const GameProvider = ({ children }) => {
     console.log('connection: ', connection);
     const provider = new ethers.BrowserProvider(connection);
     const signer = await provider.getSigner();
-    
+    console.log(typeof formInputPrice);
     const price = ethers.parseUnits(formInputPrice, 'ether');
     const contract = fetchContract(signer);
 
-    const transaction = await contract.publishNFT(accessId, +parseInt(price), finalURL);
+    // const transaction = await contract.publishNFT(accessId, +parseInt(price), finalURL);
+    const transaction = await contract.publishNFT(accessId, price, finalURL);
 
     setIsLoadingNFT(true);
     await transaction.wait();

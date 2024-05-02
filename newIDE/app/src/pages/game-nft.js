@@ -14,9 +14,20 @@ const Gamenft = () => {
 
   const [file, setFile] = useState(null);
   const [image, setImage] = useState(null);
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [price, setPrice] = useState('');
+  // const [name, setName] = useState('');
+  // const [description, setDescription] = useState('');
+  // const [price, setPrice] = useState('');
+  const [formInput, setFormInput] = useState({
+    price: '',
+    name: '',
+    description: '',
+  });
+  const handleInputChange = (key, value) => {
+    setFormInput(prevState => ({
+      ...prevState,
+      [key]: value,
+    }));
+  };
 
   const handleFileChange = e => {
     setFile(e.target.files[0]);
@@ -26,33 +37,31 @@ const Gamenft = () => {
     setImage(e.target.files[0]);
   };
 
-  const handleNameChange = e => {
-    setName(e.target.value);
-  };
+  // const handleNameChange = e => {
+  //   setName(e.target.value);
+  // };
 
-  const handleDescriptionChange = e => {
-    setDescription(e.target.value);
-  };
+  // const handleDescriptionChange = e => {
+  //   setDescription(e.target.value);
+  // };
 
-  const handlePriceChange(p) {
-    setPrice(prevState => ([
-      ...prevState,
-      p,
-    ]));
-  };
-  
+  // const handlePriceChange = price => {
+  //   // setPrice(prevState => ({ ...prevState, p }));
+  //   setPrice(price);
+  // };
+
   // const handlePriceChange = (key, value) => {
   //   setPrice(prevState => ({
   //     ...prevState,
   //     [key]: value,
   //   }));
   // };
-  
+
   const handleFormSubmit = async e => {
     e.preventDefault();
-    const finalURL = await handleSubmit(name, description, price);
+    const finalURL = await handleSubmit(formInput);
     const accessId = generateAccessId();
-    createGameNft(accessId, finalURL, parseFloat(price));
+    createGameNft(accessId, finalURL, formInput.price);
   };
 
   return (
@@ -72,23 +81,23 @@ const Gamenft = () => {
         <input
           type="text"
           placeholder="Name"
-          value={name}
-          onChange={handleNameChange}
+          // value={name}
+          onChange={e => handleInputChange('name', e.target.value)}
         />
         <br />
         <input
           type="text"
           placeholder="Description"
-          value={description}
-          onChange={handleDescriptionChange}
+          // value={description}
+          onChange={e => handleInputChange('description', e.target.value)}
         />
         <br />
         <input
-          type="number" 
-          // step="0.000000000000000001"
+          type="number"
+          step="0.0001"
           placeholder="Price (ETH)"
           // value={price}
-          onChange={e => handlePriceChange(e.target.value)} 
+          onChange={e => handleInputChange('price', e.target.value)}
         />
         <br />
         <button type="submit">Submit</button>
