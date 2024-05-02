@@ -34,7 +34,7 @@ const Gamenft = () => {
   const handleFormSubmit = async e => {
     e.preventDefault();
     const finalURL = await handleSubmit(name, description);
-    // createGameNft(name, finalURL, description);
+    // createGameNft(name, finalURL, description, price);
   };
 
   return (
