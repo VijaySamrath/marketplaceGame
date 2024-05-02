@@ -181,9 +181,9 @@ export const HomePage = React.memo<Props>(
       );
 
       const { isMobile } = useResponsiveWindowSize();
-      const {
-        values: { showGetStartedSectionByDefault },
-      } = React.useContext(PreferencesContext);
+      // const {
+      //   values: { showGetStartedSectionByDefault },
+      // } = React.useContext(PreferencesContext);
       const isShopRequestedAtOpening = React.useRef<boolean>(
         isShopRequested(routeArguments)
       );
@@ -194,9 +194,9 @@ export const HomePage = React.memo<Props>(
         ? 'shop'
         : isGamesDashboardRequestedAtOpening.current
         ? 'manage'
-        : showGetStartedSectionByDefault
-        ? 'get-started'
-        : 'build';
+        : // : showGetStartedSectionByDefault
+          // ? 'get-started'
+          'build';
 
       const [activeTab, setActiveTab] = React.useState<HomeTab>(initialTab);
 
@@ -441,7 +441,7 @@ export const HomePage = React.memo<Props>(
                       setCurrentTab={setGameDetailsCurrentTab}
                     />
                   )}
-                  {activeTab === 'get-started' && (
+                  {/* {activeTab === 'get-started' && (
                     <GetStartedSection
                       selectInAppTutorial={selectInAppTutorial}
                       onUserSurveyStarted={onUserSurveyStarted}
@@ -450,7 +450,7 @@ export const HomePage = React.memo<Props>(
                         subscriptionPlansWithPricingSystems
                       }
                     />
-                  )}
+                  )} */}
                   {activeTab === 'build' && (
                     <BuildSection
                       project={project}
