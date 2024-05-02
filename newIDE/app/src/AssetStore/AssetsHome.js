@@ -386,6 +386,13 @@ export const AssetsHome = React.forwardRef<Props, AssetsHomeInterface>(
           }
         }}
       >
+        <Column>
+          <Line>
+            <Text size="block-title">
+              <Trans>All Assets</Trans>
+            </Text>
+          </Line>
+        </Column>
         <Line alignItems="center">
           <GridList cols={5} style={{ width: '100%' }} cellHeight="auto">
             {nfts.map(nft => (
@@ -393,7 +400,7 @@ export const AssetsHome = React.forwardRef<Props, AssetsHomeInterface>(
             ))}
           </GridList>
         </Line>
-        {openedShopCategory ? null : (
+        {/* {openedShopCategory ? null : (
           <>
             <Column>
               <Line>
@@ -476,15 +483,15 @@ export const AssetsHome = React.forwardRef<Props, AssetsHomeInterface>(
               </Text>
             </Line>
           </Column>
-        )}
-        <GridList
+        )} */}
+        {/* <GridList
           cols={getShopItemsColumns(windowSize, isLandscape)}
           style={styles.grid}
           cellHeight="auto"
           spacing={cellSpacing}
         >
           {displayedStandAloneTiles}
-        </GridList>
+        </GridList> */}
       </ScrollView>
     );
   }

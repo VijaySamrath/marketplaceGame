@@ -681,7 +681,7 @@ const BuildSection = ({
           cellHeight="auto"
           spacing={cellSpacing}
         >
-          {examplesAndTemplatesToDisplay.gridItems}
+          {/* {examplesAndTemplatesToDisplay.gridItems} */}
           {nfts.map(nft => (
             <NFTCard key={nft.tokenId} nft={nft} />
           ))}
