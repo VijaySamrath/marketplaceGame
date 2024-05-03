@@ -545,7 +545,9 @@ const BuildSection = ({
                   )
                 }
                 onClick={() => {
-                  setShowCreateNFT(true);
+                  showCreateNFT
+                    ? setShowCreateNFT(false)
+                    : setShowCreateNFT(true);
                 }}
                 icon={<Add fontSize="small" />}
                 id="home-create-asset-button"
