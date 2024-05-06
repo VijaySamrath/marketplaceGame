@@ -216,7 +216,9 @@ const MainPage = ({
           </Line>
           <Line noMargin>
             <Text noMargin>
-              <Trans>Learn everything about GDevelop from the ground up</Trans>
+              <Trans>
+                Learn everything about ClickEngine from the ground up
+              </Trans>
             </Text>
           </Line>
         </SectionRow>

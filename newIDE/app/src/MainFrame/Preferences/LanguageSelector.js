@@ -54,7 +54,7 @@ const LanguageSelector = ({ onLanguageChanged }: Props) => {
     <Column noMargin>
       <Line noMargin expand>
         <SelectField
-          floatingLabelText={<Trans>Choose GDevelop language</Trans>}
+          floatingLabelText={<Trans>Choose ClickEngine language</Trans>}
           value={values.language}
           onChange={(e, i, value: string) => {
             setLanguage(value);
@@ -75,12 +75,14 @@ const LanguageSelector = ({ onLanguageChanged }: Props) => {
         <Trans>
           You can{' '}
           <Link
-            href={'https://crowdin.com/project/gdevelop'}
+            // href={'https://crowdin.com/project/gdevelop'}
+            href={''}
             onClick={() =>
-              Window.openExternalURL('https://crowdin.com/project/gdevelop')
+              // Window.openExternalURL('https://crowdin.com/project/gdevelop')
+              Window.openExternalURL('')
             }
           >
-            help to translate GDevelop in your language
+            help to translate ClickEngine in your language
           </Link>
           .
         </Trans>

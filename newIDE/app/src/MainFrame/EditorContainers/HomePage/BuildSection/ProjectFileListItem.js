@@ -223,6 +223,8 @@ export const ProjectFileListItem = ({
 }: ProjectFileListItemProps) => {
   const authenticatedUser = React.useContext(AuthenticatedUserContext);
 
+  const ClickEngineStorageName = { id: 'ClickEngine Cloud' };
+  const GDevelopStorageName = { id: 'GDevelop Cloud' };
   const storageProvider = getStorageProviderByInternalName(
     storageProviders,
     file.storageProviderName
@@ -280,7 +282,13 @@ export const ProjectFileListItem = ({
                 </Column>
                 <Column expand>
                   <Text noMargin>
-                    {storageProvider ? i18n._(storageProvider.name) : ''}
+                    {/* {storageProvider
+                      ? storageProvider.name === GDevelopStorageName
+                        ? i18n._(ClickEngineStorageName)
+                        : i18n._(storageProvider.name)
+                      : ''} */}
+                    {/* {storageProvider ? i18n._(storageProvider.name) : ''} */}
+                    {ClickEngineStorageName.id}
                   </Text>
                 </Column>
                 <Column expand>

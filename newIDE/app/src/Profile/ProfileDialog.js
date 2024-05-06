@@ -172,7 +172,7 @@ const ProfileDialog = ({ open, onClose }: Props) => {
                 authenticatedUser.onOpenChangeEmailDialog
               }
             />
-            {subscriptionPlansWithPricingSystems ? (
+            {/* {subscriptionPlansWithPricingSystems ? (
               <SubscriptionDetails
                 subscription={authenticatedUser.subscription}
                 subscriptionPlansWithPricingSystems={
@@ -183,35 +183,32 @@ const ProfileDialog = ({ open, onClose }: Props) => {
               />
             ) : (
               <PlaceholderLoader />
-            )}
+            )} */}
             <Column noMargin>
               <Line alignItems="center">
                 <Column noMargin>
                   <Text size="block-title">
-                    <Trans>GDevelop credits</Trans>
+                    <Trans>ClickEngine credits</Trans>
                   </Text>
                   <Text size="body" noMargin>
                     <Trans>
                       Get perks and cloud benefits when getting closer to your
+                      game launch.
+                    </Trans>
+                    {/* <Trans>
+                      Get perks and cloud benefits when getting closer to your
                       game launch.{' '}
-                      <Link
-                        href="https://wiki.gdevelop.io/gdevelop5/interface/profile/credits"
-                        onClick={() =>
-                          Window.openExternalURL(
-                            'https://wiki.gdevelop.io/gdevelop5/interface/profile/credits'
-                          )
-                        }
-                      >
+                      <Link href="" onClick={() => Window.openExternalURL('')}>
                         Learn more
                       </Link>
-                    </Trans>
+                    </Trans> */}
                   </Text>
                 </Column>
               </Line>
-              <CreditsStatusBanner displayPurchaseAction />
+              {/* <CreditsStatusBanner displayPurchaseAction /> */}
             </Column>
-            <ContributionsDetails userId={authenticatedUser.profile.id} />
-            {isConnected && (
+            {/* <ContributionsDetails userId={authenticatedUser.profile.id} /> */}
+            {/* {isConnected && (
               <div ref={userAchievementsContainerRef}>
                 <UserAchievements
                   badges={authenticatedUser.badges}
@@ -219,7 +216,7 @@ const ProfileDialog = ({ open, onClose }: Props) => {
                   displayNotifications
                 />
               </div>
-            )}
+            )} */}
           </Column>
         </Line>
       ) : (

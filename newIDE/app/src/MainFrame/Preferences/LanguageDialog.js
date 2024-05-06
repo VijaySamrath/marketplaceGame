@@ -56,7 +56,8 @@ const LanguageDialog = ({ open, onClose }: Props) => {
                 primary={false}
                 onClick={() =>
                   Window.openExternalURL(
-                    'https://github.com/4ian/GDevelop/issues/969'
+                    ''
+                    // 'https://github.com/4ian/GDevelop/issues/969'
                   )
                 }
               />,

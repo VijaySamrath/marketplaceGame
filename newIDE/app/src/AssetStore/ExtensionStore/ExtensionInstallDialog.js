@@ -279,9 +279,9 @@ const ExtensionInstallDialog = ({
           <AlertMessage kind="warning">
             <Trans>
               This is an extension made by a community member — but not reviewed
-              by the GDevelop extension team. As such, we can't guarantee it
+              by the ClickEngine extension team. As such, we can't guarantee it
               meets all the quality standards of official extensions. It could
-              also not be compatible with older GDevelop versions. In case of
+              also not be compatible with older ClickEngine versions. In case of
               doubt, contact the author to know more about what the extension
               does or inspect its content before using it.
             </Trans>
@@ -290,9 +290,9 @@ const ExtensionInstallDialog = ({
         {!isCompatible && (
           <AlertMessage kind="error">
             <Trans>
-              Unfortunately, this extension requires a newer version of GDevelop
-              to work. Update GDevelop to be able to use this extension in your
-              project.
+              Unfortunately, this extension requires a newer version of
+              ClickEngine to work. Update ClickEngine to be able to use this
+              extension in your project.
             </Trans>
           </AlertMessage>
         )}

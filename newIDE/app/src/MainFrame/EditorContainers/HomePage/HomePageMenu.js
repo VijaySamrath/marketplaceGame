@@ -179,9 +179,10 @@ export const HomePageMenu = ({
       ),
     },
     {
-      label: <Trans>About GDevelop</Trans>,
+      label: <Trans>About ClickEngine</Trans>,
       id: 'about-gdevelop',
-      onClick: onOpenAbout,
+      // onClick: onOpenAbout,
+      onClick: () => {},
       getIcon: ({ color, fontSize }) => (
         <GDevelopGLogo fontSize={fontSize} color={color} />
       ),

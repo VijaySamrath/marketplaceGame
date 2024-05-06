@@ -10,13 +10,13 @@ export const globalTypes = {
   themeName: {
     name: 'Theme',
     description: 'Global theme for components',
-    defaultValue: 'GDevelop default Dark',
+    defaultValue: 'ClickEngine default Dark',
     toolbar: {
       icon: 'circlehollow',
       // See theme names in ThemeRegistry.js
       items: [
-        'GDevelop default Dark',
-        'GDevelop default Light',
+        'ClickEngine default Dark',
+        'ClickEngine default Light',
         'Blue Dark',
         'Nord',
         'Solarized Dark',
@@ -39,5 +39,5 @@ export const decorators = [
   themeDecorator,
   GDevelopJsInitializerDecorator,
   i18nProviderDecorator,
-  BrowserDropDownMenuDisablerDecorator
-]
+  BrowserDropDownMenuDisablerDecorator,
+];

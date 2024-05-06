@@ -289,8 +289,8 @@ const PrivateGameTemplatePurchaseDialog = ({
             <Line justifyContent="center">
               <BackgroundText>
                 <Trans>
-                  Once you're done, come back to GDevelop and the game template
-                  will be added to your account automatically.
+                  Once you're done, come back to ClickEngine and the game
+                  template will be added to your account automatically.
                 </Trans>
               </BackgroundText>
             </Line>

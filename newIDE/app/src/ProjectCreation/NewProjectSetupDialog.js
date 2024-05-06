@@ -497,7 +497,7 @@ const NewProjectSetupDialog = ({
                   <SelectOption
                     key={storageProvider.internalName}
                     value={storageProvider.internalName}
-                    label={storageProvider.name}
+                    label={t`ClickEngine Cloud`}
                     disabled={storageProvider.disabled}
                   />
                 ))}
@@ -620,7 +620,7 @@ const NewProjectSetupDialog = ({
                   disabled={isLoading || !isOnline}
                   tooltipOrHelperText={
                     <MarkdownText
-                      translatableSource={t`Learn more about [player authentication](https://wiki.gdevelop.io/gdevelop5/all-features/player-authentication).`}
+                      translatableSource={t`Learn more about [player authentication]().`}
                     />
                   }
                 />

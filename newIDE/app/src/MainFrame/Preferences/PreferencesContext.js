@@ -329,9 +329,9 @@ export const initialPreferences = {
     themeName:
       typeof window !== 'undefined' &&
       window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? 'GDevelop default Dark'
+        ? 'ClickEngine default Dark'
         : // TODO: Use the light theme back when it's adapted to the modern theme.
-          'GDevelop default Dark',
+          'ClickEngine default Dark',
     codeEditorThemeName: 'vs-dark',
     hiddenAlertMessages: {},
     hiddenTutorialHints: {},

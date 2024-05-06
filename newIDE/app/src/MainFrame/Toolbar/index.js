@@ -56,7 +56,7 @@ const LeftButtonsToolbarGroup = React.memo<LeftButtonsToolbarGroupProps>(
         >
           <ProjectManagerIcon />
         </IconButton>
-        <IconButton
+        {/* <IconButton
           size="small"
           id="toolbar-history-button"
           onClick={props.onOpenVersionHistory}
@@ -65,7 +65,7 @@ const LeftButtonsToolbarGroup = React.memo<LeftButtonsToolbarGroupProps>(
           disabled={false}
         >
           <HistoryIcon />
-        </IconButton>
+        </IconButton> */}
         <IconButton
           size="small"
           id="toolbar-save-button"

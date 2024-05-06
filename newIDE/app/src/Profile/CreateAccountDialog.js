@@ -198,7 +198,7 @@ const CreateAccountDialog = ({
         </Text>
         <Column noMargin alignItems="center">
           <Text size="body2" noMargin align="center">
-            <Trans>Welcome to GDevelop!</Trans>
+            <Trans>Welcome to ClickEngine!</Trans>
           </Text>
           <LineStackLayout noMargin>
             <Text size="body2" noMargin align="center">
@@ -237,7 +237,7 @@ const CreateAccountDialog = ({
         </div>
         <BackgroundText>
           <MarkdownText
-            translatableSource={t`By creating an account and using GDevelop, you agree to the [Terms and Conditions](https://gdevelop.io/page/terms-and-conditions).`}
+            translatableSource={t`By creating an account and using ClickEngine, you agree to the [Terms and Conditions]().`}
           />
         </BackgroundText>
       </ColumnStackLayout>

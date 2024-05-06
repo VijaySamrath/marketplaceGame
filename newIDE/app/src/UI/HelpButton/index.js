@@ -20,12 +20,13 @@ type PropsType = {
 const HelpButton = (props: PropsType) => {
   const { isMobile } = useResponsiveWindowSize();
   if (!props.helpPagePath) return null;
-  const helpLink = getHelpLink(props.helpPagePath, props.anchor);
-  if (!helpLink) return null;
+  // const helpLink = getHelpLink(props.helpPagePath, props.anchor);
+  // if (!helpLink) return null;
 
   const onClick = () => {
     if (props.helpPagePath) {
-      Window.openExternalURL(helpLink);
+      // Window.openExternalURL(helpLink);
+      Window.openExternalURL('');
     }
   };
 

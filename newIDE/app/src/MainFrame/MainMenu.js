@@ -212,7 +212,7 @@ export const buildMainMenuDeclarativeTemplate = ({
               ? [
                   { type: 'separator' },
                   {
-                    label: i18n._(t`Exit GDevelop`),
+                    label: i18n._(t`Exit ClickEngine`),
                     accelerator: getElectronAccelerator(
                       shortcutMap['QUIT_APP']
                     ),
@@ -284,82 +284,96 @@ export const buildMainMenuDeclarativeTemplate = ({
   };
 
   // The help menu is mostly a collection of links.
-  const helpTemplate: MenuDeclarativeItemTemplate = {
-    label: i18n._(t`Help`),
-    role: 'help',
-    submenu: [
-      {
-        label: i18n._(t`GDevelop website`),
-        onClickOpenLink: 'http://gdevelop.io',
-      },
-      { type: 'separator' },
-      {
-        label: i18n._(t`GDevelop games on gd.games`),
-        onClickOpenLink: 'https://gd.games',
-      },
-      {
-        label: i18n._(t`Community Forums`),
-        onClickOpenLink: 'https://forum.gdevelop.io',
-      },
-      {
-        label: i18n._(t`Community Discord Chat`),
-        onClickOpenLink: 'https://discord.gg/gdevelop',
-      },
-      { type: 'separator' },
-      {
-        label: i18n._(t`YouTube channel (tutorials and more)`),
-        onClickOpenLink: 'https://www.youtube.com/c/gdevelopapp',
-      },
-      {
-        label: i18n._(t`TikTok`),
-        onClickOpenLink: 'https://tiktok.com/@gdevelop',
-      },
-      {
-        label: i18n._(t`Twitter`),
-        onClickOpenLink: 'https://twitter.com/gdevelopapp',
-      },
-      {
-        label: i18n._(t`Instagram`),
-        onClickOpenLink: 'https://www.instagram.com/gdevelopapp',
-      },
-      {
-        label: i18n._(t`Facebook`),
-        onClickOpenLink: 'https://facebook.com/gdevelopapp',
-      },
-      { type: 'separator' },
-      {
-        label: i18n._(t`Buy GDevelop goodies and swag`),
-        onClickOpenLink: 'https://goodies.gdevelop.io',
-      },
-      {
-        label: i18n._(t`Contribute to GDevelop`),
-        onClickOpenLink: 'https://gdevelop.io/page/contribute',
-      },
-      {
-        label: i18n._(t`Create Extensions for GDevelop`),
-        onClickOpenLink:
-          'https://github.com/4ian/GDevelop/blob/master/newIDE/README-extensions.md',
-      },
-      { type: 'separator' },
-      {
-        label: i18n._(t`Help to Translate GDevelop`),
-        onClickOpenLink: 'https://crowdin.com/project/gdevelop',
-      },
-      {
-        label: i18n._(t`Report a wrong translation`),
-        onClickOpenLink: 'https://github.com/4ian/GDevelop/issues/969',
-      },
-      ...(isMacLike() && isDesktop
-        ? []
-        : [
-            { type: 'separator' },
-            {
-              label: i18n._(t`About GDevelop`),
-              onClickSendEvent: 'main-menu-open-about',
-            },
-          ]),
-    ],
-  };
+  // const helpTemplate: MenuDeclarativeItemTemplate = {
+  //   label: i18n._(t`Help`),
+  //   role: 'help',
+  //   submenu: [
+  //     {
+  //       label: i18n._(t`ClickEngine website`),
+  //       // onClickOpenLink: 'http://gdevelop.io',
+  //       onClickOpenLink: '',
+  //     },
+  //     { type: 'separator' },
+  //     {
+  //       label: i18n._(t`ClickEngine games on ce.games`),
+  //       // onClickOpenLink: 'https://gd.games',
+  //       onClickOpenLink: '',
+  //     },
+  //     {
+  //       label: i18n._(t`Community Forums`),
+  //       // onClickOpenLink: 'https://forum.gdevelop.io',
+  //       onClickOpenLink: '',
+  //     },
+  //     {
+  //       label: i18n._(t`Community Discord Chat`),
+  //       // onClickOpenLink: 'https://discord.gg/gdevelop',
+  //       onClickOpenLink: '',
+  //     },
+  //     { type: 'separator' },
+  //     {
+  //       label: i18n._(t`YouTube channel (tutorials and more)`),
+  //       // onClickOpenLink: 'https://www.youtube.com/c/gdevelopapp',
+  //       onClickOpenLink: '',
+  //     },
+  //     {
+  //       label: i18n._(t`TikTok`),
+  //       // onClickOpenLink: 'https://tiktok.com/@gdevelop',
+  //       onClickOpenLink: '',
+  //     },
+  //     {
+  //       label: i18n._(t`Twitter`),
+  //       // onClickOpenLink: 'https://twitter.com/gdevelopapp',
+  //       onClickOpenLink: '',
+  //     },
+  //     {
+  //       label: i18n._(t`Instagram`),
+  //       // onClickOpenLink: 'https://www.instagram.com/gdevelopapp',
+  //       onClickOpenLink: '',
+  //     },
+  //     {
+  //       label: i18n._(t`Facebook`),
+  //       // onClickOpenLink: 'https://facebook.com/gdevelopapp',
+  //       onClickOpenLink: '',
+  //     },
+  //     { type: 'separator' },
+  //     {
+  //       label: i18n._(t`Buy ClickEngine goodies and swag`),
+  //       // onClickOpenLink: 'https://goodies.gdevelop.io',
+  //       onClickOpenLink: '',
+  //     },
+  //     {
+  //       label: i18n._(t`Contribute to ClickEngine`),
+  //       // onClickOpenLink: 'https://gdevelop.io/page/contribute',
+  //       onClickOpenLink: '',
+  //     },
+  //     {
+  //       label: i18n._(t`Create Extensions for ClickEngine`),
+  //       // onClickOpenLink:
+  //       //   'https://github.com/4ian/GDevelop/blob/master/newIDE/README-extensions.md',
+  //       onClickOpenLink: '',
+  //     },
+  //     { type: 'separator' },
+  //     {
+  //       label: i18n._(t`Help to Translate ClickEngine`),
+  //       // onClickOpenLink: 'https://crowdin.com/project/gdevelop',
+  //       onClickOpenLink: '',
+  //     },
+  //     {
+  //       label: i18n._(t`Report a wrong translation`),
+  //       // onClickOpenLink: 'https://github.com/4ian/GDevelop/issues/969',
+  //       onClickOpenLink: '',
+  //     },
+  //     ...(isMacLike() && isDesktop
+  //       ? []
+  //       : [
+  //           { type: 'separator' },
+  //           {
+  //             label: i18n._(t`About ClickEngine`),
+  //             onClickSendEvent: 'main-menu-open-about',
+  //           },
+  //         ]),
+  //   ],
+  // };
 
   // Structure of the menu. Some electron specific menus are not even shown
   // on the web-app, because they would not work and make sense at all.
@@ -368,16 +382,16 @@ export const buildMainMenuDeclarativeTemplate = ({
     ...(!!electron ? [editTemplate] : []),
     viewTemplate,
     ...(!!electron ? [windowTemplate] : []),
-    helpTemplate,
+    // helpTemplate,
   ];
 
   // macOS has a menu with the name of the app.
   if (isMacLike() && isApplicationTopLevelMenu) {
     template.unshift({
-      label: i18n._(t`GDevelop 5`),
+      label: i18n._(t`ClickEngine`),
       submenu: [
         {
-          label: i18n._(t`About GDevelop`),
+          label: i18n._(t`About ClickEngine`),
           onClickSendEvent: 'main-menu-open-about',
         },
         { type: 'separator' },

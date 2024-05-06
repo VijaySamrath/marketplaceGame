@@ -220,8 +220,8 @@ const CreditsPackagePurchaseDialog = ({
             <Line justifyContent="center">
               <BackgroundText>
                 <Trans>
-                  Once you're done, come back to GDevelop and the credits will
-                  be added to your account automatically.
+                  Once you're done, come back to ClickEngine and the credits
+                  will be added to your account automatically.
                 </Trans>
               </BackgroundText>
             </Line>

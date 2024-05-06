@@ -94,9 +94,10 @@ const HomePageMenuBar = ({
       ),
     },
     {
-      label: <Trans>About GDevelop</Trans>,
+      label: <Trans>About ClickEngine</Trans>,
       id: 'about-gdevelop',
-      onClick: onOpenAbout,
+      onClick: () => {},
+      // onClick: onOpenAbout,
       getIcon: ({ color, fontSize }) => (
         <GDevelopGLogo fontSize={fontSize} color={color} />
       ),

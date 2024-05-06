@@ -317,7 +317,7 @@ const PrivateAssetPackInformationPage = ({
         ) {
           await showAlert({
             title: t`Error when claiming asset pack`,
-            message: t`The monthly free asset pack perk was not part of your plan at the time you got your subscription to GDevelop. To enjoy this perk, please purchase a new subscription.`,
+            message: t`The monthly free asset pack perk was not part of your plan at the time you got your subscription to ClickEngine. To enjoy this perk, please purchase a new subscription.`,
           });
         } else {
           console.error(

@@ -503,7 +503,7 @@ const GetStartedSection = ({
           >
             <Text size="title" align="center">
               {!profile || isNewUser ? (
-                <Trans>Welcome to GDevelop!</Trans>
+                <Trans>Welcome to ClickEngine!</Trans>
               ) : profile && profile.username ? (
                 <Trans>Good to see you {profile.username}!</Trans>
               ) : (

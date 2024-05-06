@@ -280,13 +280,13 @@ const AboutDialog = ({ onClose, updateStatus }: Props) => {
 
   return (
     <Dialog
-      title={<Trans>About GDevelop</Trans>}
+      title={<Trans>About ClickEngine</Trans>}
       actions={[
         <FlatButton
           key="website"
-          label={<Trans>GDevelop Website</Trans>}
+          label={<Trans>ClickEngine Website</Trans>}
           primary={false}
-          onClick={() => Window.openExternalURL('https://gdevelop.io')}
+          onClick={() => Window.openExternalURL('')}
         />,
         <FlatButton
           key="close"

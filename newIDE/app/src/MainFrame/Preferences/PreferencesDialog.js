@@ -154,11 +154,13 @@ const PreferencesDialog = ({ i18n, onClose }: Props) => {
                 You can contribute and{' '}
                 <Link
                   href={
-                    'https://github.com/4ian/GDevelop/blob/master/newIDE/README-themes.md'
+                    ''
+                    // 'https://github.com/4ian/GDevelop/blob/master/newIDE/README-themes.md'
                   }
                   onClick={() =>
                     Window.openExternalURL(
-                      'https://github.com/4ian/GDevelop/blob/master/newIDE/README-themes.md'
+                      ''
+                      // 'https://github.com/4ian/GDevelop/blob/master/newIDE/README-themes.md'
                     )
                   }
                 >
@@ -453,7 +455,7 @@ const PreferencesDialog = ({ i18n, onClose }: Props) => {
               labelPosition="right"
               label={
                 <Trans>
-                  Watch changes in game engine (GDJS) sources and auto import
+                  Watch changes in game engine (CEJS) sources and auto import
                   them (dev only)
                 </Trans>
               }

@@ -97,7 +97,7 @@ export const LoadingScreenEditor = ({
                 <Checkbox
                   label={
                     <Trans>
-                      Display GDevelop logo at startup (in exported game)
+                      Display ClickEngine logo at startup (in exported game)
                     </Trans>
                   }
                   checked={loadingScreen.isGDevelopLogoShownDuringLoadingScreen()}
@@ -120,7 +120,7 @@ export const LoadingScreenEditor = ({
               <Column expand noMargin justifyContent="center">
                 <SelectField
                   fullWidth
-                  floatingLabelText={<Trans>GDevelop logo style</Trans>}
+                  floatingLabelText={<Trans>ClickEngine logo style</Trans>}
                   value={loadingScreen.getGDevelopLogoStyle()}
                   onChange={(e, i, newGdevelopLogoStyle: string) => {
                     const currentGDevelopLogoStyle = loadingScreen.getGDevelopLogoStyle();
@@ -147,27 +147,27 @@ export const LoadingScreenEditor = ({
               </Column>
             </ResponsiveLineStackLayout>
 
-            <ResponsiveLineStackLayout noMargin>
+            {/* <ResponsiveLineStackLayout noMargin>
               <Column expand noMargin justifyContent="center">
                 <Checkbox
                   label={
                     <Trans>
-                      Display GDevelop watermark after the game is loaded (in
+                      Display ClickEngine watermark after the game is loaded (in
                       exported game)
                     </Trans>
                   }
                   checked={watermark.isGDevelopWatermarkShown()}
                   onCheck={(e, checked) => {
-                    if (
-                      !checked &&
-                      !loadingScreen.isGDevelopLogoShownDuringLoadingScreen() &&
-                      subscriptionChecker.current &&
-                      !subscriptionChecker.current.checkUserHasSubscription()
-                    ) {
-                      // If user wants to deactivate watermark although GDevelop splash
-                      // screen is hidden, we don't allow it if they have no subscription.
-                      return;
-                    }
+                    // if (
+                    //   !checked &&
+                    //   !loadingScreen.isGDevelopLogoShownDuringLoadingScreen() &&
+                    //   subscriptionChecker.current &&
+                    //   !subscriptionChecker.current.checkUserHasSubscription()
+                    // ) {
+                    //   // If user wants to deactivate watermark although GDevelop splash
+                    //   // screen is hidden, we don't allow it if they have no subscription.
+                    //   return;
+                    // }
                     watermark.showGDevelopWatermark(checked);
                     if (checked) {
                       loadingScreen.setMinDuration(
@@ -213,7 +213,7 @@ export const LoadingScreenEditor = ({
                 <SelectField
                   fullWidth
                   floatingLabelText={
-                    <Trans>GDevelop watermark placement</Trans>
+                    <Trans>ClickEngine watermark placement</Trans>
                   }
                   value={watermark.getPlacement()}
                   onChange={(e, i, newPlacement: string) => {
@@ -233,17 +233,17 @@ export const LoadingScreenEditor = ({
                   ))}
                 </SelectField>
               </Column>
-            </ResponsiveLineStackLayout>
-            {shouldDisplayGetSubscriptionCard && (
+            </ResponsiveLineStackLayout> */}
+            {/* {shouldDisplayGetSubscriptionCard && (
               <GetSubscriptionCard subscriptionDialogOpeningReason="Disable GDevelop splash at startup">
                 <Text>
                   <Trans>
-                    Get a silver or gold subscription to disable GDevelop
+                    Get a silver or gold subscription to disable ClickEngine
                     branding.
                   </Trans>
                 </Text>
               </GetSubscriptionCard>
-            )}
+            )} */}
           </ColumnStackLayout>
           <Text size="section-title">
             <Trans>Loading screen</Trans>
@@ -538,7 +538,7 @@ export const LoadingScreenEditor = ({
             <AlertMessage kind="info">
               <Trans>
                 Progress bar fade in delay and duration will be applied to
-                GDevelop logo.
+                ClickEngine logo.
               </Trans>
             </AlertMessage>
           ) : null}
@@ -548,7 +548,7 @@ export const LoadingScreenEditor = ({
             onChangeSubscription={onChangeSubscription}
             mode="mandatory"
             id="Disable GDevelop splash at startup"
-            title={<Trans>Disable GDevelop splash at startup</Trans>}
+            title={<Trans>Disable ClickEngine splash at startup</Trans>}
           />
         </ColumnStackLayout>
       )}
