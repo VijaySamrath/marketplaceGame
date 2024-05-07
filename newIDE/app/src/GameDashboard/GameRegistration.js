@@ -301,7 +301,7 @@ export const GameRegistration = ({
               <RaisedButton
                 label={<Trans>See marketing packs</Trans>}
                 primary
-                onClick={() => setMarketingPlansDialogOpen(true)}
+                onClick={() => setMarketingPlansDialogOpen(false)}
               />
             </Line>
           </Column>

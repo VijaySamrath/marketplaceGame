@@ -384,12 +384,15 @@ export default class PixiResourcesLoader {
               isResourceForPixi: true,
             }
           );
+
           console.log('ResourcesLoader.getResourceFullUrl, url: ', url);
           PIXI.Assets.setPreferences({
             preferWorkers: false,
             preferCreateImageBitmap: false,
             crossOrigin: determineCrossOrigin(url),
           });
+          // Gola-k Not parsing the URL here:
+          // await PIXI.Assets.add({ alias: 'bunnyBooBoo', src: url });
           const loadedTexture = await PIXI.Assets.load(url);
           console.log('loadedTexture: ', loadedTexture);
           loadedTextures[resourceName] = loadedTexture;

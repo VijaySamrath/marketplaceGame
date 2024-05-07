@@ -48,7 +48,7 @@ const TutorialMessage = ({ tutorial }: Props) => {
                 )
               }
               onClick={() => {
-                Window.openExternalURL(tutorial.link);
+                Window.openExternalURL('');
               }}
             />
           )}

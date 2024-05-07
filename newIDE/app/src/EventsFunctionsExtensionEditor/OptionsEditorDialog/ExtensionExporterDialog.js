@@ -94,7 +94,7 @@ const ExtensionExporterDialog = (props: Props) => {
               You can export the extension to a file to easily import it in
               another project. If your extension is providing useful and
               reusable functions or behaviors, consider sharing it with the
-              GDevelop community!
+              ClickEngine community!
             </Trans>
           </Text>
         </Line>
