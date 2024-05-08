@@ -149,6 +149,201 @@ export const GameProvider = ({ children }) => {
     await transaction.wait();
   };
 
+<<<<<<< Updated upstream
+=======
+  const buyNftWithaccessID = async (accessId, priceInEther) => {
+    const web3Modal = new Web3Modal();
+    const connection = await web3Modal.connect();
+    const provider = new ethers.BrowserProvider(connection);
+    const signer = await provider.getSigner();
+    const contract = fetchContract(signer);
+  
+    try {
+      if (hasBoughtNFT(accessId)) {
+        throw new Error("Error: You can't buy this NFT because you already own it.");
+      }
+  
+      const transaction = await contract.buyNFT(accessId, {
+        value: priceInEther,
+      });
+  
+      setIsLoadingNFT(true);
+      await transaction.wait();
+      setIsLoadingNFT(false);
+      console.log("NFT bought successfully");
+  
+      setBoughtNFTs(prevBoughtNFTs => {
+        const updatedBoughtNFTs = [...prevBoughtNFTs, accessId];
+        console.log("Updated boughtNFTs:", updatedBoughtNFTs);
+        return updatedBoughtNFTs;
+      });
+    } catch (error) {
+      console.error("Error buying NFT:", error);
+      setIsLoadingNFT(false);
+      throw error;
+    }
+  };
+
+  const fetchMyBoughtNFTs = async () => {
+    try {
+      const web3Modal = new Web3Modal();
+      const connection = await web3Modal.connect();
+      const provider = new ethers.BrowserProvider(connection);
+      const contract = fetchContract(provider);
+  
+      // Fetch bought NFTs for the connected account
+      const boughtNFTs = await contract.fetchMyBoughtNFTs();
+      console.log('fetchMyBoughtNFTs', fetchMyBoughtNFTs);
+  
+      // Initialize an array to store fetched NFTs
+      const myBoughtNFTs = [];
+  
+      // Iterate over each bought NFT
+      for (let i = 0; i < boughtNFTs.length; i++) {
+        const nft = boughtNFTs[i];
+        const owner = nft[0];
+        const sellingPrice = nft[1];
+        const seller = nft[2];
+        const tokenId = nft[3];
+  
+        // Fetch additional metadata for the bought NFT
+        const accessIdlist = await contract.getaccessIdslist();
+        console.log("accessIdlist", accessIdlist);
+  
+        // Iterate over each accessId
+        for (let j = 0; j < accessIdlist.length; j++) {
+          const accessIdProxy = accessIdlist[j];
+          const GametokenURI = await contract.getTokenURI(accessIdProxy, tokenId);
+          console.log("GametokenURI", GametokenURI);
+  
+          const response = await axios.get(GametokenURI);
+          const { data } = response;
+          console.log('NFT metadata:', data);
+  
+          const {
+            name,
+            fileURL,
+            imageURL,
+            description,
+            price,
+          } = data;
+  
+          // Construct the bought NFT object with metadata
+          const boughtNFT = {
+            owner,
+            sellingPrice,
+            seller,
+            tokenId,
+            name,
+            fileURL,
+            imageURL,
+            description,
+            price,
+            accessId: accessIdProxy,
+            GametokenURI,
+          };
+  
+          myBoughtNFTs.push(boughtNFT);
+        }
+      }
+  
+      console.log('My bought NFTs:', myBoughtNFTs);
+      return myBoughtNFTs;
+    } catch (error) {
+      console.error('Error fetching bought NFTs:', error);
+      return [];
+    }
+  };
+    
+  
+  const fetchGameNFTs = async () => {
+    setIsLoadingNFT(true);
+  
+    try {
+      const provider = new ethers.JsonRpcProvider(
+        'https://eth-sepolia.g.alchemy.com/v2/0Hy758w6BteirxoloAs_K_vgQhMZuCIc'
+      );
+  
+      const contract = fetchContract(provider);
+  
+      // Fetch last NFTs
+      const lastNFTs = await contract.fetchLastNFTs();
+      console.log('fetchGameItems data:', lastNFTs);
+  
+      // Set to keep track of fetched combinations of accessId and tokenId
+      const fetchedCombinations = new Set();
+  
+      // Array to store fetched NFTs
+      const nfts = [];
+  
+      // Iterate over each fetched NFT
+      for (let i = 0; i < lastNFTs.length; i++) {
+        const nftProxy = lastNFTs[i];
+        const owner = nftProxy[0];
+        const sellingPrice = nftProxy[1];
+        const seller = nftProxy[2];
+        const tokenId = nftProxy[3];
+  
+        // Get the list of accessIds for this tokenId
+        const accessIdlist = await contract.getaccessIdslist();
+        console.log("accessIdlist", accessIdlist);
+  
+        // Iterate over each accessId
+        for (let j = 0; j < accessIdlist.length; j++) {
+          const accessIdProxy = accessIdlist[j];
+          const combination = `${accessIdProxy}-${tokenId}`;
+  
+          // Check if the combination has already been fetched
+          if (!fetchedCombinations.has(combination)) {
+            const GametokenURI = await contract.getTokenURI(accessIdProxy, tokenId);
+            console.log("GametokenURI", GametokenURI);
+  
+            const response = await axios.get(GametokenURI);
+            const { data } = response;
+            console.log('NFT metadata:', data);
+  
+            const {
+              name,
+              fileURL,
+              imageURL,
+              description,
+              price,
+            } = data;
+  
+            console.log("imageURL", imageURL);
+  
+            nfts.push({
+              owner,
+              sellingPrice,
+              seller,
+              tokenId,
+              name,
+              fileURL,
+              imageURL,
+              description,
+              price,
+              accessId: accessIdProxy,
+              GametokenURI,
+            });
+  
+            // Add the combination to the set to avoid fetching duplicates
+            fetchedCombinations.add(combination);
+          }
+        }
+      }
+  
+      console.log("nfts", nfts);
+  
+      setIsLoadingNFT(false);
+      return nfts;
+    } catch (error) {
+      console.error('Error fetching NFTs:', error);
+      setIsLoadingNFT(false);
+      return [];
+    }
+  };
+  
+>>>>>>> Stashed changes
   return (
     <GameContext.Provider
       value={{
